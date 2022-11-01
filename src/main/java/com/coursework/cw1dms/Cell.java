@@ -6,12 +6,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class Cell {
+public class Cell{
     private Rectangle rectangle;
     private Group root;
     private Text textClass;
     private boolean modify = false;
-
     void setModify(boolean modify) {
         this.modify = modify;
     }

@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
-class GameScene {
+class GameScene{
     private static int HEIGHT = 700;
-    private static int n = 4;
+    private static int n = 4; //<- change the grid size (n=4, 4*4) -> ref to myself (ignore this)
     private final static int distanceBetweenCells = 10;
     private static double LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
     private TextMaker textMaker = TextMaker.getSingleInstance();
@@ -30,30 +30,30 @@ class GameScene {
         return LENGTH;
     }
 
-    private void randomFillNumber(int turn) {
+    private void randomFillNumber() {  //remove int turn as it was redundant
 
         Cell[][] emptyCells = new Cell[n][n];
         int a = 0;
         int b = 0;
         int aForBound=0,bForBound=0;
         outer:
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (cells[i][j].getNumber() == 0) {
-                    emptyCells[a][b] = cells[i][j];
-                    if (b < n-1) {
-                        bForBound=b;
-                        b++;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (cells[i][j].getNumber() == 0) {
+                        emptyCells[a][b] = cells[i][j];
+                        if (b < n - 1) {
+                            bForBound = b;
+                            b++;
 
-                    } else {
-                        aForBound=a;
-                        a++;
-                        b = 0;
-                        if(a==n)
-                            break outer;
+                        } else {
+                            aForBound = a;
+                            a++;
+                            b = 0;
+                            if (a == n)
+                                break outer;
+                        }
                     }
                 }
-            }
         }
 
 
@@ -70,7 +70,7 @@ class GameScene {
             text = textMaker.madeText("2", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root);
             emptyCells[xCell][yCell].setTextClass(text);
             root.getChildren().add(text);
-            emptyCells[xCell][yCell].setColorByNumber(2);
+            emptyCells[xCell][yCell]. setColorByNumber(2);
         } else {
             text = textMaker.madeText("4", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root);
             emptyCells[xCell][yCell].setTextClass(text);
@@ -79,7 +79,7 @@ class GameScene {
         }
     }
 
-    private int  haveEmptyCell() {
+    private int haveEmptyCell() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (cells[i][j].getNumber() == 0)
@@ -144,13 +144,12 @@ class GameScene {
         return -1;
     }
 
+    // removed cells[i][j].setModify from methods: moveLeft(), moveRight(), moveUp(), moveDown() -> pushed to sumCellNumberstoScore(), so that
+    // it would only be set back to false after I add to score
     private void moveLeft() {
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < n; j++) {
                 moveHorizontally(i, j, passDestination(i, j, 'l'), -1);
-            }
-            for (int j = 0; j < n; j++) {
-                cells[i][j].setModify(false);
             }
         }
     }
@@ -160,9 +159,6 @@ class GameScene {
             for (int j = n - 1; j >= 0; j--) {
                 moveHorizontally(i, j, passDestination(i, j, 'r'), 1);
             }
-            for (int j = 0; j < n; j++) {
-                cells[i][j].setModify(false);
-            }
         }
     }
 
@@ -170,9 +166,6 @@ class GameScene {
         for (int j = 0; j < n; j++) {
             for (int i = 1; i < n; i++) {
                 moveVertically(i, j, passDestination(i, j, 'u'), -1);
-            }
-            for (int i = 0; i < n; i++) {
-                cells[i][j].setModify(false);
             }
         }
 
@@ -182,9 +175,6 @@ class GameScene {
         for (int j = 0; j < n; j++) {
             for (int i = n - 1; i >= 0; i--) {
                 moveVertically(i, j, passDestination(i, j, 'd'), 1);
-            }
-            for (int i = 0; i < n; i++) {
-                cells[i][j].setModify(false);
             }
         }
 
@@ -202,8 +192,8 @@ class GameScene {
 
     private void moveHorizontally(int i, int j, int des, int sign) {
         if (isValidDesH(i, j, des, sign)) {
+            cells[i][des+sign].setModify(true);   //ref to moveVertically
             cells[i][j].adder(cells[i][des + sign]);
-            cells[i][des].setModify(true);
         } else if (des != j) {
             cells[i][j].changeCell(cells[i][des]);
         }
@@ -220,8 +210,8 @@ class GameScene {
 
     private void moveVertically(int i, int j, int des, int sign) {
         if (isValidDesV(i, j, des, sign)) {
-            cells[i][j].adder(cells[des + sign][j]);
-            cells[des][j].setModify(true);
+            cells[des+sign][j].setModify(true);      // replaced [des+sign] instead of cells[des] , and swapped it to the top, this was to capture
+            cells[i][j].adder(cells[des + sign][j]); // everytime the adder method was called to += to score
         } else if (des != i) {
             cells[i][j].changeCell(cells[des][j]);
         }
@@ -249,9 +239,13 @@ class GameScene {
     }
 
     private void sumCellNumbersToScore() {
+        int empty_cell = GameScene.this.haveEmptyCell();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                score += cells[i][j].getNumber();
+                if(cells[i][j].getModify() && empty_cell==1) {  //added limiters that fixed scoring system
+                    score += cells[i][j].getNumber();
+                    cells[i][j].setModify(false); //set it back to false that indicates cells cannot be added
+                }
             }
         }
     }
@@ -277,35 +271,39 @@ class GameScene {
         scoreText.setFont(Font.font(20));
         scoreText.setText("0");
 
-        randomFillNumber(1);
-        randomFillNumber(1);
 
-        gameScene.addEventHandler(KeyEvent.KEY_PRESSED, key ->{
-                Platform.runLater(() -> {
-                    int haveEmptyCell;
-                    if (key.getCode() == KeyCode.DOWN) {
-                        GameScene.this.moveDown();
-                    } else if (key.getCode() == KeyCode.UP) {
-                        GameScene.this.moveUp();
-                    } else if (key.getCode() == KeyCode.LEFT) {
-                        GameScene.this.moveLeft();
-                    } else if (key.getCode() == KeyCode.RIGHT) {
-                        GameScene.this.moveRight();
-                    }
+        randomFillNumber(); //removed turn
+        randomFillNumber(); //removed turn
+
+
+        gameScene.addEventHandler(KeyEvent.KEY_PRESSED, key -> Platform.runLater(() -> { //refactored code to make it simpler
+            int haveEmptyCell;
+            if (key.getCode() == KeyCode.DOWN) {
+                GameScene.this.moveDown();
+            } else if (key.getCode() == KeyCode.UP) {
+                GameScene.this.moveUp();
+            } else if (key.getCode() == KeyCode.LEFT) {
+                GameScene.this.moveLeft();
+            } else if (key.getCode() == KeyCode.RIGHT) {
+                GameScene.this.moveRight();
+            }
+            haveEmptyCell = GameScene.this.haveEmptyCell();
+            if (haveEmptyCell == -1) {
+                if (GameScene.this.canNotMove()) {
+                    primaryStage.setScene(endGameScene);
+
+                    EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
+                    root.getChildren().clear();
+                    score = 0;
+                }
+            } else if(haveEmptyCell == 1) {
+                if (key.getCode() == KeyCode.DOWN ||key.getCode() == KeyCode.UP || key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.RIGHT) {
+                    //added key.getCode()^ to ensure that random cells WOULD spawn and scores COULD increment only when keys are pressed
+                    GameScene.this.randomFillNumber(); //removed int turn
                     GameScene.this.sumCellNumbersToScore();
                     scoreText.setText(score + "");
-                    haveEmptyCell = GameScene.this.haveEmptyCell();
-                    if (haveEmptyCell == -1) {
-                        if (GameScene.this.canNotMove()) {
-                            primaryStage.setScene(endGameScene);
-
-                            EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
-                            root.getChildren().clear();
-                            score = 0;
-                        }
-                    } else if(haveEmptyCell == 1)
-                        GameScene.this.randomFillNumber(2);
-                });
-            });
+                }
+            }
+        }));
     }
 }

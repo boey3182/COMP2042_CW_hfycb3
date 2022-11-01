@@ -11,8 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.util.Optional;
+import static java.lang.System.exit;
 
 
 public class EndGame {
@@ -43,19 +43,18 @@ public class EndGame {
         quitButton.setPrefSize(100,30);
         quitButton.setTextFill(Color.PINK);
         root.getChildren().add(quitButton);
-        quitButton.relocate(100,800);
-        quitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Quit Dialog");
-                alert.setHeaderText("Quit from this page");
-                alert.setContentText("Are you sure?");
+        quitButton.relocate(100,500); //ignore this -> for future version(test)
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
-                    root.getChildren().clear();
-                }
+        quitButton.setOnMouseClicked(event -> { //refactored code to make it simpler
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Quit Dialog");
+            alert.setHeaderText("Quit from this page");
+            alert.setContentText("Are you sure?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                root.getChildren().clear();
+                exit(0); // game will quit when OK button is clicked
             }
         });
 
