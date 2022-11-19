@@ -320,56 +320,58 @@ class GameScene{
         randomFillNumber(); //removed turn
 
 
-        gameScene.addEventHandler(KeyEvent.KEY_PRESSED, key -> Platform.runLater(() -> { //refactored code to make it simpler
-            int haveEmptyCell;
-            if (key.getCode() == KeyCode.DOWN) {
-                this.dl=GameScene.this.moveDown(); // this.dl will initially =0;
-            } else if (key.getCode() == KeyCode.UP) {
-                this.ul=GameScene.this.moveUp(); // this.ul will initially =0;
-            } else if (key.getCode() == KeyCode.LEFT) {
-                this.ll=GameScene.this.moveLeft(); // this.ll will initially =0;
-            } else if (key.getCode() == KeyCode.RIGHT) {
-                this.lr=GameScene.this.moveRight(); // this.lr will initially =0;
-            }
-            sc1=score;
-            GameScene.this.sumCellNumbersToScore();
-            scoreText.setText(score + "");
-            if (sc1!=score){ // variable sc1 will check whether the score has been incremented or not --> sc1 would always be lesser than score,
-                             // because it would only start incrementing after adding two cells n+1 times. For example cells 2 and 2 would generate a score
-                             // of 4, but sc1 will remain 0.
-
-                added=true;  // sc1 is not equals to true, that would mean that there was a change in scores
-            }else{
-                added=false;
-            }
-            haveEmptyCell = GameScene.this.haveEmptyCell();
-            if (haveEmptyCell == -1) {
-                if (GameScene.this.canNotMove()) {
-                    primaryStage.setScene(endGameScene);
-                    EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
-                    root.getChildren().clear();
-                    score = 0;
+        gameScene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
+            Platform.runLater(() -> { //refactored code to make it simpler
+                int haveEmptyCell;
+                if (key.getCode() == KeyCode.DOWN) {
+                    this.dl = GameScene.this.moveDown(); // this.dl will initially =0;
+                } else if (key.getCode() == KeyCode.UP) {
+                    this.ul = GameScene.this.moveUp(); // this.ul will initially =0;
+                } else if (key.getCode() == KeyCode.LEFT) {
+                    this.ll = GameScene.this.moveLeft(); // this.ll will initially =0;
+                } else if (key.getCode() == KeyCode.RIGHT) {
+                    this.lr = GameScene.this.moveRight(); // this.lr will initially =0;
                 }
-            } else if(haveEmptyCell == 1) {
-                if (key.getCode() == KeyCode.DOWN ||key.getCode() == KeyCode.UP || key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.RIGHT) {
-                    if (added){ // if two cells were added, generate a cell
-                        GameScene.this.randomFillNumber();
-                    }else { //else check whether any of the below methods returned a 1
-                        if (this.ll == 1 || this.lr == 1 || this.ul == 1 || this.dl == 1) { //when either moveUp/moveDown/moveLeft/moveRight returns 1,
-                            GameScene.this.randomFillNumber();// then generate new cells.
-                        }
+                sc1 = score;
+                GameScene.this.sumCellNumbersToScore();
+                scoreText.setText(score + "");
+                if (sc1 != score) { // variable sc1 will check whether the score has been incremented or not --> sc1 would always be lesser than score,
+                    // because it would only start incrementing after adding two cells n+1 times. For example cells 2 and 2 would generate a score
+                    // of 4, but sc1 will remain 0.
+
+                    added = true;  // sc1 is not equals to true, that would mean that there was a change in scores
+                } else {
+                    added = false;
+                }
+                haveEmptyCell = GameScene.this.haveEmptyCell();
+                if (haveEmptyCell == -1) {
+                    if (GameScene.this.canNotMove()) {
+                        primaryStage.setScene(endGameScene);
+                        EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
+                        root.getChildren().clear();
+                        score = 0;
                     }
-                    // after generating new cells, set all back to 0 -> so that it can ready for detection of whether ( cells have been added or whether there are
-                    // empty spaces
-                    this.ll=0;
-                    this.lr=0;
-                    this.ul=0;
-                    this.dl=0;
-                    this.x=0;
-                    this.y=0;
+                } else if (haveEmptyCell == 1) {
+                    if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.UP || key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.RIGHT) {
+                        if (added) { // if two cells were added, generate a cell
+                            GameScene.this.randomFillNumber();
+                        } else { //else check whether any of the below methods returned a 1
+                            if (this.ll == 1 || this.lr == 1 || this.ul == 1 || this.dl == 1) { //when either moveUp/moveDown/moveLeft/moveRight returns 1,
+                                GameScene.this.randomFillNumber();// then generate new cells.
+                            }
+                        }
+                        // after generating new cells, set all back to 0 -> so that it can ready for detection of whether ( cells have been added or whether there are
+                        // empty spaces
+                        this.ll = 0;
+                        this.lr = 0;
+                        this.ul = 0;
+                        this.dl = 0;
+                        this.x = 0;
+                        this.y = 0;
 
+                    }
                 }
-            }
-        }));
+            });
+        });
     }
 }
