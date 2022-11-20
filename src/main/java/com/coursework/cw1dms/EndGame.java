@@ -1,24 +1,30 @@
 package com.coursework.cw1dms;
 
-import javafx.scene.Group;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
-import static java.lang.System.exit;
+import java.io.IOException;
+import java.util.Objects;
 
 
 public class EndGame{
     private static EndGame singleInstance = null;
-    private EndGame(){
+    public Button exitButton;
+    public Button goBacktoMainMenu;
+    @FXML
+    private Pane exitPane;
+    @FXML
+    public Label finalScore;
+    private Stage endStage;
+    private Scene endScene;
+    public EndGame(){
 
     }
 
@@ -28,41 +34,39 @@ public class EndGame{
         return singleInstance;
     }
 
-    public void endGameShow(Scene endGameScene, @NotNull Group root, Stage primaryStage, long score){
+    public void endGameShow(@NotNull Stage primaryStage, long score) throws IOException {
 
-        Text text = new Text("Game Over");
-        text.relocate(220,275);
-        text.setFont(Font.font("Verdana", FontWeight.BOLD, 80));
-        root.getChildren().add(text);
+            FXMLLoader loader= new FXMLLoader(getClass().getResource("EndGameScene.fxml")); // EndGameScene now done in SceneBuilder
 
+            Parent endRoot = loader.load(); //load the loader
+            EndGame eg = loader.getController(); //use loader to get controller to get label( if this is not done, this.finalscore will be null)
+            eg.finalScore.setText(""+score);
 
-        Text scoreText = new Text("Your score: "+score+"");
-        scoreText.setFill(Color.BLACK);
-        scoreText.relocate(260,375);
-        scoreText.setFont(Font.font(String.valueOf(FontWeight.THIN),60));
-        root.getChildren().add(scoreText);
-
-        Button quitButton = new Button("Quit");
-        quitButton.setPrefSize(200,60);
-        quitButton.setTextFill(Color.BLACK);
-        root.getChildren().add(quitButton);
-        quitButton.relocate(360,440);
-
-        quitButton.setOnAction(event -> { //refactored code to make it simpler
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-           alert.setTitle("Quit Dialog");
-            alert.setHeaderText("Quit from this page");
-           alert.setContentText("Are you sure?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                root.getChildren().clear();
-                exit(0); // game will quit when OK button is clicked
-            }
-        });
-
-
-
-
+            Scene endScene = new Scene(endRoot);
+            primaryStage.setScene(endScene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
     }
+
+
+
+    public void exitGame(ActionEvent event) { //implementation of exitGame Button
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit");
+        alert.setHeaderText("You're about to exit!");
+
+        if(alert.showAndWait().get() == ButtonType.OK){
+            endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+            endStage.close();
+        }
+    }
+
+    public void BacktoMainMenu(ActionEvent event) throws IOException { //implementation of going back to main menu in the form of a button
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
+        endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+        endScene = new Scene(root);
+        endStage.setScene(endScene);
+        endStage.show();
+    }
+
 }

@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Random;
 
 class GameScene{
@@ -346,8 +347,11 @@ class GameScene{
                 haveEmptyCell = GameScene.this.haveEmptyCell();
                 if (haveEmptyCell == -1) {
                     if (GameScene.this.canNotMove()) {
-                        primaryStage.setScene(endGameScene);
-                        EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
+                        try {
+                            EndGame.getInstance().endGameShow(primaryStage,score); // implemented try and catch as method endGameShow is now done in javafx
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         root.getChildren().clear();
                         score = 0;
                     }

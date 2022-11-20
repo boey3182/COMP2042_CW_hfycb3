@@ -27,13 +27,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        Group endgameRoot = new Group();
-        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, Color.rgb(250, 20, 100, 0.2));
-
-        Group accountRoot = new Group();
-        Scene accountScene = new Scene(accountRoot, WIDTH, HEIGHT, Color.rgb(150, 20, 100, 0.2));
-
         try{
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
             Scene scene= new Scene(root);
