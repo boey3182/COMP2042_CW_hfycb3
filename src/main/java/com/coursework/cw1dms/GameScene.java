@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -294,7 +295,7 @@ class GameScene{
         }
     }
 
-    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot) {
+    void game(Scene gameScene, Group root, Stage primaryStage, Color color) {
 
         this.root = root;
         for (int i = 0; i < n; i++) {
@@ -348,7 +349,7 @@ class GameScene{
                 if (haveEmptyCell == -1) {
                     if (GameScene.this.canNotMove()) {
                         try {
-                            EndGame.getInstance().endGameShow(primaryStage,score); // implemented try and catch as method endGameShow is now done in javafx
+                            EndGame.getInstance().endGameShow(primaryStage,score,color);// implemented try and catch as method endGameShow is now done in javafx
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
