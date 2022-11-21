@@ -3,14 +3,11 @@ package com.coursework.cw1dms;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
@@ -22,12 +19,11 @@ public class EndGame{
     public Button exitButton;
     public Button goBacktoMainMenu;
     @FXML
-    public AnchorPane exitPane;
+    private Pane exitPane;
     @FXML
     public Label finalScore;
     private Stage endStage;
     private Scene endScene;
-
     public EndGame(){
 
     }
@@ -37,17 +33,22 @@ public class EndGame{
             singleInstance= new EndGame();
         return singleInstance;
     }
-    public void endGameShow(@NotNull Stage primaryStage, long score, Color color) throws IOException {
-            FXMLLoader loader= new FXMLLoader(getClass().getResource("EndGameScene.fxml"));
+
+    public void endGameShow(@NotNull Stage primaryStage, long score) throws IOException {
+
+            FXMLLoader loader= new FXMLLoader(getClass().getResource("EndGameScene.fxml")); // EndGameScene now done in SceneBuilder
+
             Parent endRoot = loader.load(); //load the loader
             EndGame eg = loader.getController(); //use loader to get controller to get label( if this is not done, this.finalscore will be null)
             eg.finalScore.setText(""+score);
-            eg.exitPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+
             Scene endScene = new Scene(endRoot);
             primaryStage.setScene(endScene);
             primaryStage.setResizable(false);
             primaryStage.show();
     }
+
+
 
     public void exitGame(ActionEvent event) { //implementation of exitGame Button
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
