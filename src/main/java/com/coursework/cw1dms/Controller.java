@@ -16,26 +16,32 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Controller extends Main {
+public class Controller extends EndGame{
+
     public Stage stage;
-
-    private Scene scene;
-
-    private Parent root;
     static final int WIDTH = 900;
     static final int HEIGHT = 700;
 
     @FXML
     private Pane pane;
 
+    private static Controller singleInstance = null;
+
     @FXML
-    private ColorPicker colorPicker;
+    public ColorPicker colorPicker;
 
-    public void changeColor(ActionEvent event) {
+    public Color color;
 
-        Color color = colorPicker.getValue();
+    public Group gameRoot = new Group();
+
+
+    public void changeColor(ActionEvent event) throws IOException {
+        color = colorPicker.getValue();
         pane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+
     }
+
+
 
     public void switchScenes(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
@@ -44,19 +50,15 @@ public class Controller extends Main {
         Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, colorPicker.getValue());
 
         Rectangle backgroundOfMenu = new Rectangle(240, 120, Color.rgb(120, 120, 120, 0.2));
-        backgroundOfMenu.setX(WIDTH / 2 - 120);
+        backgroundOfMenu.setX((float)WIDTH / 2 - 120);
         backgroundOfMenu.setY(180);
 
-
         Rectangle backgroundOfMenuForPlay = new Rectangle(240, 140, Color.rgb(120, 20, 100, 0.2));
-        backgroundOfMenuForPlay.setX(WIDTH / 2 - 120);
+        backgroundOfMenuForPlay.setX((float)WIDTH / 2 - 120);
         backgroundOfMenuForPlay.setY(180);
 
-        Group endgameRoot = new Group();
-        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, colorPicker.getValue());
-
         GameScene startGame = new GameScene();
-        startGame.game(gameScene,gameRoot,stage,endGameScene,endgameRoot);
+        startGame.game(gameScene,gameRoot,stage,color);
 
         stage.setScene(gameScene);
         stage.setResizable(false);
