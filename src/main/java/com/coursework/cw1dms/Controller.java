@@ -7,7 +7,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Controller extends EndGame{
+public class Controller{ //removed redundant inheritance
 
     public Stage stage;
     static final int WIDTH = 900;
@@ -34,6 +36,15 @@ public class Controller extends EndGame{
 
     public Group gameRoot = new Group();
 
+    @FXML
+    public RadioButton radioButton4;
+
+    @FXML
+    public RadioButton radioButton5;
+
+    @FXML
+    public RadioButton radioButton6;
+
 
     public void changeColor(ActionEvent event) throws IOException {
         color = colorPicker.getValue();
@@ -42,27 +53,50 @@ public class Controller extends EndGame{
     }
 
 
-
     public void switchScenes(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
-        stage =(Stage)((Node)event.getSource()).getScene().getWindow();
+        if(!radioButton4.isSelected() && !radioButton5.isSelected() && !radioButton6.isSelected()){ // added error handling for when user does not click on radio button to choose level
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Empty Selection");
+            alert.setHeaderText("You did not select a level, Please try again!");
+            alert.showAndWait().get();// do nothing and go back
+        }
+        else {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, colorPicker.getValue());
+            Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, colorPicker.getValue());
 
-        Rectangle backgroundOfMenu = new Rectangle(240, 120, Color.rgb(120, 120, 120, 0.2));
-        backgroundOfMenu.setX((float)WIDTH / 2 - 120);
-        backgroundOfMenu.setY(180);
+            Rectangle backgroundOfMenu = new Rectangle(240, 120, Color.rgb(120, 120, 120, 0.2));
+            backgroundOfMenu.setX((float) WIDTH / 2 - 120);
+            backgroundOfMenu.setY(180);
 
-        Rectangle backgroundOfMenuForPlay = new Rectangle(240, 140, Color.rgb(120, 20, 100, 0.2));
-        backgroundOfMenuForPlay.setX((float)WIDTH / 2 - 120);
-        backgroundOfMenuForPlay.setY(180);
+            Rectangle backgroundOfMenuForPlay = new Rectangle(240, 140, Color.rgb(120, 20, 100, 0.2));
+            backgroundOfMenuForPlay.setX((float) WIDTH / 2 - 120);
+            backgroundOfMenuForPlay.setY(180);
 
-        GameScene startGame = new GameScene();
-        startGame.game(gameScene,gameRoot,stage,color);
+            GameScene startGame = new GameScene();
+            startGame.game(gameScene, gameRoot, stage, color);
 
-        stage.setScene(gameScene);
-        stage.setResizable(false);
-        stage.show();
+            stage.setScene(gameScene);
+            stage.setResizable(false);
+            stage.show();
+        }
+    }
+
+    public void setNValue(ActionEvent event){ // method for radio buttons
+        GameScene gs = new GameScene();
+        if(radioButton4.isSelected()){ //if the specific radio button is selected, the value "n" in GameScene would change to its respective value
+            gs.setN(4);
+        }
+
+        else if(radioButton5.isSelected()){
+            gs.setN(5);
+        }
+
+        else {
+            gs.setN(6);
+        }
+
     }
 
 }

@@ -8,9 +8,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
@@ -19,17 +21,30 @@ import java.util.Objects;
 
 public class EndGame{
     private static EndGame singleInstance = null;
+
+    @FXML
     public Button exitButton;
-    public Button goBacktoMainMenu;
+
+    @FXML
+    private Button saveViewButton;
+
     @FXML
     public AnchorPane exitPane;
     @FXML
-    public Label finalScore;
+    private Label finalScore;
+    @FXML
+    private TextField getUsername;
+
     private Stage endStage;
+
     private Scene endScene;
 
-    public EndGame(){
+    public Parent endRoot;
 
+    public String username;
+
+
+    public EndGame(){
     }
 
     public static EndGame getInstance(){
@@ -37,35 +52,69 @@ public class EndGame{
             singleInstance= new EndGame();
         return singleInstance;
     }
+
     public void endGameShow(@NotNull Stage primaryStage, long score, Color color) throws IOException {
+
             FXMLLoader loader= new FXMLLoader(getClass().getResource("EndGameScene.fxml"));
-            Parent endRoot = loader.load(); //load the loader
+            endRoot = loader.load(); //load the loader
             EndGame eg = loader.getController(); //use loader to get controller to get label( if this is not done, this.finalscore will be null)
+
             eg.finalScore.setText(""+score);
             eg.exitPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-            Scene endScene = new Scene(endRoot);
+
+            endScene = new Scene(endRoot);
             primaryStage.setScene(endScene);
             primaryStage.setResizable(false);
             primaryStage.show();
     }
 
-    public void exitGame(ActionEvent event) { //implementation of exitGame Button
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
-        alert.setHeaderText("You're about to exit!");
 
-        if(alert.showAndWait().get() == ButtonType.OK){
-            endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
-            endStage.close();
+
+    public void exitGame(ActionEvent event){ //implementation of exitGame Button
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Exit");
+            alert.setHeaderText("You're about to exit without saving your score!");
+
+            if(alert.showAndWait().get() == ButtonType.OK){
+                endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+                endStage.close();
+            }
+
+    }
+
+
+    public void saveView(ActionEvent event) throws IOException {
+
+        if(getUsername.getText().isEmpty()){ //error handling for when user does not enter username.
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Username is Empty");
+            alert.setHeaderText("You did not insert a username, Please try again!");
+
+            alert.showAndWait().get();// do nothing and go back
         }
+        else {
+            endRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Leaderboard.fxml")));
+            endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+            endScene = new Scene(endRoot);
+            endStage.setScene(endScene);
+            endStage.show();
+
+            username=getUsername.getText(); //grab input from user for username
+
+            Account acc = new Account(Long.parseLong(finalScore.getText()),username); //make new instance of the class Account
+            acc.makeNewAccount(username,Long.parseLong(finalScore.getText())); //call the method makeNewAccount()
+            acc.readAccount(); //and read account
+
+            //Flow of game from this point: username and finalScore would be passed on to class Account -> new Account would be made,
+            //the purpose of readAccount is to read the file and store it back in the array list, but this would only be useful if the file
+            //is not empty. In the case scenario where it is empty, readAccount() would break out of loop and call sortAccounts() instead, so it would
+            //directly write to its respective highscore list. If it's not empty, everything in the txt file would be read and stored back into the arraylist,
+            //and resorted and reprinted into its respective highscore list.
+        }
+
+
     }
 
-    public void BacktoMainMenu(ActionEvent event) throws IOException { //implementation of going back to main menu in the form of a button
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
-        endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
-        endScene = new Scene(root);
-        endStage.setScene(endScene);
-        endStage.show();
-    }
 
 }

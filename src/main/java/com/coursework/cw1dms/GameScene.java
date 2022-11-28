@@ -15,7 +15,7 @@ import java.util.Random;
 
 class GameScene{
     private static int HEIGHT = 700;
-    private static int n = 4; //<- change the grid size (n=4, 4*4) -> ref to myself (ignore this)
+    private static int n; //<-n value is now controlled by radio buttons, in Controller.java
     private final static int distanceBetweenCells = 10;
     private static double LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
     private TextMaker textMaker = TextMaker.getSingleInstance();
@@ -27,9 +27,13 @@ class GameScene{
     private int ll,lr,ul,dl=0; // all variables here were used in cooperation with their methods , so if moveLeft returned 1 then ll.moveLeft would ==1
     public int x,y=0;
 
-    static void setN(int number) {
+    public void setN(int number) {
         n = number;
         LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
+    }
+
+    public int getN(){
+        return n;
     }
 
     static double getLENGTH() {
@@ -157,7 +161,7 @@ class GameScene{
             for (int j = 1; j < n; j++) {
                 x=moveHorizontally(i, j, passDestination(i, j, 'l'), -1);
                 if(x==1){  // if moveHorizontally were to return 1
-                    y=x; //then y would =1
+                    y=1; //then y would =1
                 }
             }
         }
@@ -169,7 +173,7 @@ class GameScene{
             for (int j = n - 1; j >= 0; j--) {
                 x=moveHorizontally(i, j, passDestination(i, j, 'r'), 1);
                 if(x==1){ // if moveHorizontally were to return 1
-                    y=x; // then y would =1
+                    y=1; // then y would =1
                 }
             }
         }
@@ -181,7 +185,7 @@ class GameScene{
             for (int i = 1; i < n; i++) {
                 x=moveVertically(i, j, passDestination(i, j, 'u'), -1); // if moveVertically were to return 1
                 if(x==1){ //then x would =1
-                    y=x; // which in turn make y=1 as well
+                    y=1; // which in turn make y=1 as well
                 }
 
             }
@@ -194,7 +198,7 @@ class GameScene{
             for (int i = n - 1; i >= 0; i--) {
                 x=moveVertically(i, j, passDestination(i, j, 'd'), 1); // if moveVertically were to return 1
                 if(x==1){ //then x would =1
-                    y=x; // which in turn make y=1 as well
+                    y=1; // which in turn make y=1 as well
                 }
             }
         }
