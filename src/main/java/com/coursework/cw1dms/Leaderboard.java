@@ -6,11 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -19,51 +17,68 @@ public class Leaderboard {
     public Leaderboard(){
     }
 
-    private static Leaderboard singleInstance = null;
-
+    @FXML
+    private ListView<String> L4; // generify ListView
 
     @FXML
-    public ListView listView1;
+    private ListView<String> L5; // generify ListView
 
     @FXML
-    public ListView listView2;
+    private ListView<String> L6; // generify ListView
 
     @FXML
-    public ListView listView3;
-
-    @FXML
-    public Button back;
+    private Button back;
 
     public Parent leaderRoot;
 
     private Stage leaderStage;
 
-    private Scene leaderScene;
-
     @FXML
     private AnchorPane leaderPane;
 
+    @FXML
+    public Button exitButton;
 
-    private static long score;
 
-    public static Leaderboard getInstance(){
-        if(singleInstance == null)
-            singleInstance= new Leaderboard();
-        return singleInstance;
+    public void leaderboardShow(int dim) throws IOException {
+        for(int i=0;i<Account.accounts.size();i++) {
+            switch (dim) {
+                case 4 ->
+                        L4.getItems().add("Username: " + Account.accounts.get(i).getUserName() + " | " + "Score: " + Account.accounts.get(i).getScore());
+                        //above line updates the leaderboard based on the dimension that the user chooses.
+                case 5 ->
+                        L5.getItems().add("Username: " + Account.accounts.get(i).getUserName() + " | " + "Score: " + Account.accounts.get(i).getScore());
+                        //above line updates the leaderboard based on the dimension that the user chooses.
+                case 6 ->
+                        L6.getItems().add("Username: " + Account.accounts.get(i).getUserName() + " | " + "Score: " + Account.accounts.get(i).getScore());
+                        //above line updates the leaderboard based on the dimension that the user chooses.
+            }
+        }
+
+        //If the user decides to play the 4 by 4 grid, the LeaderboardScene would only show the Leaderboard of the gridLevel that the user played,
+        //in this case that would be 4x4. So only 4x4 grid leaderboard would show, this is to indicate which level he chose to play.
     }
-
 
 
     public void goBack(ActionEvent event) throws IOException {
         leaderRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
         leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
-        leaderScene = new Scene(leaderRoot);
+        Scene leaderScene = new Scene(leaderRoot); //made leaderScene a local variable to simplify code
         leaderStage.setScene(leaderScene);
         leaderStage.show();
     }
 
 
-    public void leaderboardShow() throws IOException {
+    public void exitLeaderboard(ActionEvent event){ //implementation of exitGame Button
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit");
+        alert.setHeaderText("You're about to exit the Game!");
+
+        if(alert.showAndWait().get() == ButtonType.OK){
+            leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+            leaderStage.close();
+        }
 
     }
 }

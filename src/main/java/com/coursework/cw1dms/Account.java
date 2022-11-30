@@ -40,6 +40,8 @@ public class Account implements Comparable<Account> {
         return username;
     }
 
+
+
     public void setUsername(String username){
         this.username=username;
     }
@@ -58,7 +60,7 @@ public class Account implements Comparable<Account> {
     }
 
 
-    public void readAccount(){
+    public void readAccount(Leaderboard leader_ctrl){ //
 
             File find = new File("Accounts/"+getLevelValue()+"-AccountList.txt"); // eg:- find file from directory Accounts/4-AccountList
             Scanner reader;
@@ -70,7 +72,6 @@ public class Account implements Comparable<Account> {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
             while (reader.hasNext()) {
                 st1 = reader.next(); //reads the username
 
@@ -82,15 +83,14 @@ public class Account implements Comparable<Account> {
                 }
             }
             reader.close(); //if null -> close the reader, and sort the array, and then clear the arrayList.
-            sortAccount(accounts); //sorting ArrayList using bubble-sort from the highest score to lowest
+            sortAccount(accounts,leader_ctrl); //sorting ArrayList using bubble-sort from the highest score to lowest
             accounts.clear(); //clear the array, this was done to prevent any junk or null values;
-
     }
 
 
 
 
-    public void sortAccount(ArrayList<Account> accounts){
+    public void sortAccount(ArrayList<Account> accounts,Leaderboard leaderctrl){
 
         for(int i=0;i< accounts.size();i++){ // simple implementation of bubble-sorting to sort arraylist from the highest to lowest score
             for(int j=i+1;j< accounts.size();j++) {
@@ -107,6 +107,7 @@ public class Account implements Comparable<Account> {
             for(int i=0;i<accounts.size();i++) {
                 myWriter.write(String.valueOf(Account.accounts.get(i))); //write all values of accounts arraylist until empty
             }
+            leaderctrl.leaderboardShow(getLevelValue()); // using the controller instance to call a method from Leaderboard.java
             myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

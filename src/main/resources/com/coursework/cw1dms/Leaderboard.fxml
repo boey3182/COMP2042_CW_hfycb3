@@ -8,12 +8,12 @@
 
 <AnchorPane fx:id="leaderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coursework.cw1dms.Leaderboard">
    <children>
-      <Label layoutX="310.0" layoutY="127.0" prefHeight="88.0" prefWidth="297.0" text=" Leaderboards " textAlignment="RIGHT" underline="true">
+      <Label layoutX="310.0" layoutY="125.0" prefHeight="88.0" prefWidth="297.0" text=" Leaderboards " textAlignment="RIGHT" underline="true">
          <font>
             <Font name="Calibri Bold" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="back" layoutX="383.0" layoutY="510.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="150.0" text="Back">
+      <Button fx:id="back" layoutX="359.0" layoutY="491.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="200.0" text="Back to Main Menu">
          <font>
             <Font size="19.0" />
          </font>
@@ -33,8 +33,13 @@
             <Font name="Calibri Bold" size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="listView1" layoutX="98.0" layoutY="265.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="listView2" layoutX="359.0" layoutY="265.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="listView3" layoutX="620.0" layoutY="265.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="exitButton" layoutX="384.0" layoutY="552.0" mnemonicParsing="false" onAction="#exitLeaderboard" prefHeight="40.0" prefWidth="150.0" text="Exit">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <ListView fx:id="L4" layoutX="98.0" layoutY="273.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="L5" layoutX="359.0" layoutY="273.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="L6" layoutX="620.0" layoutY="273.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

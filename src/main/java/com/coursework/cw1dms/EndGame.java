@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class EndGame{
@@ -59,8 +58,8 @@ public class EndGame{
             endRoot = loader.load(); //load the loader
             EndGame eg = loader.getController(); //use loader to get controller to get label( if this is not done, this.finalscore will be null)
 
-            eg.finalScore.setText(""+score);
-            eg.exitPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+            eg.finalScore.setText(""+score); // show final score
+            eg.exitPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY))); //change color of the EndGameScene -> EndGameScene.fxml
 
             endScene = new Scene(endRoot);
             primaryStage.setScene(endScene);
@@ -90,21 +89,23 @@ public class EndGame{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Username is Empty");
             alert.setHeaderText("You did not insert a username, Please try again!");
-
             alert.showAndWait().get();// do nothing and go back
         }
         else {
-            endRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Leaderboard.fxml")));
-            endStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Leaderboard.fxml")); //load the fxml file
+            endRoot = loader.load();
+            Leaderboard lbd_ctrl = loader.getController();
+
+            endStage =(Stage)((Node)event.getSource()).getScene().getWindow(); //get current stage
             endScene = new Scene(endRoot);
-            endStage.setScene(endScene);
+            endStage.setScene(endScene); //switch to Leaderboard scene -> Leaderboard.fxml
             endStage.show();
 
             username=getUsername.getText(); //grab input from user for username
 
             Account acc = new Account(Long.parseLong(finalScore.getText()),username); //make new instance of the class Account
             acc.makeNewAccount(username,Long.parseLong(finalScore.getText())); //call the method makeNewAccount()
-            acc.readAccount(); //and read account
+            acc.readAccount(lbd_ctrl); //and read account and pass the controller instance
 
             //Flow of game from this point: username and finalScore would be passed on to class Account -> new Account would be made,
             //the purpose of readAccount is to read the file and store it back in the array list, but this would only be useful if the file
