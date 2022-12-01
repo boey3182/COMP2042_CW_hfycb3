@@ -92,12 +92,18 @@ class GameScene{
     private int haveEmptyCell() {
         for (int i= 0 ; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (cells[i][j].getNumber() == 0)
-                    return 1;
                 if(cells[i][j].getNumber() == 2048)
                     return 0;
             }
         }
+
+        for (int i= 0 ; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (cells[i][j].getNumber() == 0)
+                    return 1;
+            }
+        }
+
         return -1;
     }
 
@@ -350,35 +356,48 @@ class GameScene{
                     added = false;
                 }
                 haveEmptyCell = GameScene.this.haveEmptyCell();
-                if (haveEmptyCell == -1) {
-                    if (GameScene.this.canNotMove()) {
+                switch (haveEmptyCell)
+                {
+                    case 0:
                         try {
-                            EndGame.getInstance().endGameShow(primaryStage,score,color);// implemented try and catch as method endGameShow is now done in javafx
+                            EndGame.getInstance().endGameShow(primaryStage, score, color);// implemented try and catch as method endGameShow is now done in javafx
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                         root.getChildren().clear();
                         score = 0;
-                    }
-                } else if (haveEmptyCell == 1) {
-                    if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.UP || key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.RIGHT) {
-                        if (added) { // if two cells were added, generate a cell
-                            GameScene.this.randomFillNumber();
-                        } else { //else check whether any of the below methods returned a 1
-                            if (this.ll == 1 || this.lr == 1 || this.ul == 1 || this.dl == 1) { //when either moveUp/moveDown/moveLeft/moveRight returns 1,
-                                GameScene.this.randomFillNumber();// then generate new cells.
-                            }
-                        }
-                        // after generating new cells, set all back to 0 -> so that it can ready for detection of whether ( cells have been added or whether there are
-                        // empty spaces
-                        this.ll = 0;
-                        this.lr = 0;
-                        this.ul = 0;
-                        this.dl = 0;
-                        this.x = 0;
-                        this.y = 0;
+                        break;
 
-                    }
+                    case -1:
+                        if(GameScene.this.canNotMove()) {
+                            try {
+                                EndGame.getInstance().endGameShow(primaryStage, score, color);// implemented try and catch as method endGameShow is now done in javafx
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            root.getChildren().clear();
+                            score = 0;
+                        }
+                        break;
+                    case 1:
+                        if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.UP || key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.RIGHT) {
+                            if (added) { // if two cells were added, generate a cell
+                                GameScene.this.randomFillNumber();
+                            } else { //else check whether any of the below methods returned a 1
+                                if (this.ll == 1 || this.lr == 1 || this.ul == 1 || this.dl == 1) { //when either moveUp/moveDown/moveLeft/moveRight returns 1,
+                                    GameScene.this.randomFillNumber();// then generate new cells.
+                                }
+                            }
+                            // after generating new cells, set all back to 0 -> so that it can ready for detection of whether ( cells have been added or whether there are
+                            // empty spaces
+                            this.ll = 0;
+                            this.lr = 0;
+                            this.ul = 0;
+                            this.dl = 0;
+                            this.x = 0;
+                            this.y = 0;
+                        }
+                        break;
                 }
             });
         });

@@ -2,7 +2,6 @@ package com.coursework.cw1dms;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,8 +16,10 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Enchanced 2048");
+
+            primaryStage.setTitle("Enhanced 2048");
             primaryStage.getIcons().add(new Image("file:icon.jpeg"));
+
             primaryStage.setResizable(false);
             primaryStage.show();
         } catch(Exception e){

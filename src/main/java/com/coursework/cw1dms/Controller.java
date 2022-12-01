@@ -1,59 +1,74 @@
 package com.coursework.cw1dms;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import java.io.File;
 
-import java.io.IOException;
-import java.util.Objects;
 
 public class Controller{ //removed redundant inheritance
 
     public Stage stage;
     static final int WIDTH = 900;
     static final int HEIGHT = 700;
-
     @FXML
     private Pane pane;
-
-    private static Controller singleInstance = null;
-
     @FXML
-    public ColorPicker colorPicker;
-
-    public Color color;
-
+    private ColorPicker colorPicker;
+    private Color color;
     public Group gameRoot = new Group();
+    @FXML
+    private RadioButton radioButton4,radioButton5,radioButton6;
+    @FXML
+    private Button play,pause;
 
     @FXML
-    public RadioButton radioButton4;
+    private MediaView mediaView;
 
-    @FXML
-    public RadioButton radioButton5;
+    private MediaPlayer mediaPlayer;
 
-    @FXML
-    public RadioButton radioButton6;
+    public Controller() {
+    }
 
-
-    public void changeColor(ActionEvent event) throws IOException {
+    public void changeColor() {
         color = colorPicker.getValue();
         pane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 
     }
 
+    public void playVideo(){
+        File file = new File("Videos/2048Tutorial.mp4");
+        Media media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.play(); //on Press, the video would show up and play
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(new Duration(0.0))); //set to Loop
+    }
 
-    public void switchScenes(ActionEvent event) throws IOException {
+    public void pauseVideo(){
+        mediaPlayer.pause();
+    }
+
+
+    public void switchScenes(ActionEvent event) {
         if(!radioButton4.isSelected() && !radioButton5.isSelected() && !radioButton6.isSelected()){ // added error handling for when user does not click on radio button to choose level
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Empty Selection");
@@ -61,9 +76,7 @@ public class Controller{ //removed redundant inheritance
             alert.showAndWait().get();// do nothing and go back
         }
         else {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, colorPicker.getValue());
 
             Rectangle backgroundOfMenu = new Rectangle(240, 120, Color.rgb(120, 120, 120, 0.2));
@@ -83,7 +96,7 @@ public class Controller{ //removed redundant inheritance
         }
     }
 
-    public void setNValue(ActionEvent event){ // method for radio buttons
+    public void setNValue(){ // method for radio buttons
         GameScene gs = new GameScene();
         if(radioButton4.isSelected()){ //if the specific radio button is selected, the value "n" in GameScene would change to its respective value
             gs.setN(4);

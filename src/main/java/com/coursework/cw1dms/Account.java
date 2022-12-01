@@ -22,7 +22,6 @@ public class Account implements Comparable<Account> {
         this.username=username;
     }
 
-
     @Override
     public int compareTo(@NotNull Account o) {
         return Long.compare(o.getScore(), score);
@@ -39,8 +38,6 @@ public class Account implements Comparable<Account> {
     public String getUserName() {
         return username;
     }
-
-
 
     public void setUsername(String username){
         this.username=username;
@@ -90,7 +87,7 @@ public class Account implements Comparable<Account> {
 
 
 
-    public void sortAccount(ArrayList<Account> accounts,Leaderboard leaderctrl){
+    public void sortAccount(ArrayList<Account> accounts,Leaderboard leader_ctrl){
 
         for(int i=0;i< accounts.size();i++){ // simple implementation of bubble-sorting to sort arraylist from the highest to lowest score
             for(int j=i+1;j< accounts.size();j++) {
@@ -103,12 +100,12 @@ public class Account implements Comparable<Account> {
             }
 
         try {
-            FileWriter myWriter = new FileWriter("Accounts/"+getLevelValue()+"-AccountList.txt"); //after sorting the arraylist, write it to its respective file
+            FileWriter writeAccount = new FileWriter("Accounts/"+getLevelValue()+"-AccountList.txt"); //after sorting the arraylist, write it to its respective file
             for(int i=0;i<accounts.size();i++) {
-                myWriter.write(String.valueOf(Account.accounts.get(i))); //write all values of accounts arraylist until empty
+                writeAccount.write(String.valueOf(Account.accounts.get(i))); //write all values of accounts arraylist until empty
             }
-            leaderctrl.leaderboardShow(getLevelValue()); // using the controller instance to call a method from Leaderboard.java
-            myWriter.close();
+            leader_ctrl.leaderboardShow(getLevelValue()); // using the controller instance to call a method from Leaderboard.java
+            writeAccount.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
