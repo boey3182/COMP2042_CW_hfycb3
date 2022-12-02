@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coursework.cw1dms.Controller">
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.coursework.cw1dms.ControllerClasses.Controller">
    <children>
       <Label layoutX="220.0" layoutY="110.0" prefHeight="78.0" prefWidth="477.0" text="Enhanced 2048" wrapText="true">
          <font>
@@ -12,7 +16,7 @@
          </font>
       </Label>
       <ColorPicker fx:id="colorPicker" layoutX="355.0" layoutY="203.0" onAction="#changeColor" prefHeight="41.0" prefWidth="198.0" />
-      <Button layoutX="380.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchScenes" prefHeight="50.0" prefWidth="159.0" text="Start Game" />
+      <Button fx:id="start" layoutX="380.0" layoutY="336.0" mnemonicParsing="false" onAction="#switchScenes" prefHeight="50.0" prefWidth="159.0" text="Start Game" />
       <Label layoutX="367.0" layoutY="245.0" prefHeight="17.0" prefWidth="185.0" text="Change the color of the game here!" textAlignment="CENTER">
          <font>
             <Font name="System Italic" size="12.0" />

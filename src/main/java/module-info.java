@@ -7,4 +7,10 @@ module com.coursework.cw1dms {
 
     opens com.coursework.cw1dms to javafx.fxml;
     exports com.coursework.cw1dms;
+    exports com.coursework.cw1dms.Game;
+    opens com.coursework.cw1dms.Game to javafx.fxml;
+    exports com.coursework.cw1dms.ControllerClasses;
+    opens com.coursework.cw1dms.ControllerClasses to javafx.fxml;
+    exports com.coursework.cw1dms.Account;
+    opens com.coursework.cw1dms.Account to javafx.fxml;
 }

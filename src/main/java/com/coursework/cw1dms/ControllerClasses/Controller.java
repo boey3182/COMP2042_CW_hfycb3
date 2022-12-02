@@ -1,5 +1,6 @@
-package com.coursework.cw1dms;
+package com.coursework.cw1dms.ControllerClasses;
 
+import com.coursework.cw1dms.Game.GameScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -23,37 +24,84 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.File;
 
+/**
+ * The Controller class is used as a controller for the fxml file: Menu.fxml
+ *
+ * @author Chun Hong Boey-modified
+ */
 
 public class Controller{ //removed redundant inheritance
 
-    public Stage stage;
+    /**
+     * Width of the GameScene
+     */
     static final int WIDTH = 900;
+    /**
+     * Height of the GameScene
+     */
     static final int HEIGHT = 700;
+
+    /**
+     * Pane of Menu.fxml
+     */
     @FXML
     private Pane pane;
+
+    /**
+     * ColorPicker variable of Menu.fxml
+     */
     @FXML
     private ColorPicker colorPicker;
+    /**
+     * Variable that would store the color of the colorPicker
+     */
     private Color color;
-    public Group gameRoot = new Group();
+
+    /**
+     * New root that would store all the components that it is tied to
+     */
+    private final Group gameRoot = new Group();
+
+    /**
+     * RadioButtons used to switch the levels of the game
+     */
     @FXML
     private RadioButton radioButton4,radioButton5,radioButton6;
+
+    /**
+     * Buttons used to control the MediaView
+     */
     @FXML
     private Button play,pause;
-
+    /**
+     * MediaView used to make the video show in the GameScene
+     */
     @FXML
     private MediaView mediaView;
-
+    /**
+     * MediaPlayer variable provides the ability to control the video, eg: mediaPlayer.play();
+     */
     private MediaPlayer mediaPlayer;
 
+    /**
+     * Empty Constructor of class Controller
+     */
     public Controller() {
     }
 
+    /**
+     * Method used to change the color of the Main Menu scene using a colorPicker
+     */
     public void changeColor() {
         color = colorPicker.getValue();
         pane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 
     }
 
+    /**
+     * Method used for finding the Specific mp4 file, and playing it when Button play is activated,
+     * mp4 file is repeated when it reaches the end of the video.
+     */
     public void playVideo(){
         File file = new File("Videos/2048Tutorial.mp4");
         Media media = new Media(file.toURI().toString());
@@ -63,10 +111,20 @@ public class Controller{ //removed redundant inheritance
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(new Duration(0.0))); //set to Loop
     }
 
+    /**
+     * Method used to pause the video
+     */
+
     public void pauseVideo(){
         mediaPlayer.pause();
     }
 
+    /**
+     * Method used to switch scenes from Main Menu(Menu.fxml) to the GameScene, and this can only be done iff
+     * a radioButton is selected.
+     *
+     * @param event used to get the current scene
+     */
 
     public void switchScenes(ActionEvent event) {
         if(!radioButton4.isSelected() && !radioButton5.isSelected() && !radioButton6.isSelected()){ // added error handling for when user does not click on radio button to choose level
@@ -76,7 +134,7 @@ public class Controller{ //removed redundant inheritance
             alert.showAndWait().get();// do nothing and go back
         }
         else {
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, colorPicker.getValue());
 
             Rectangle backgroundOfMenu = new Rectangle(240, 120, Color.rgb(120, 120, 120, 0.2));
@@ -95,6 +153,10 @@ public class Controller{ //removed redundant inheritance
             stage.show();
         }
     }
+
+    /**
+     * Method used to change the Value "N" of the GameScene.java, this is to create new Levels for the game
+     */
 
     public void setNValue(){ // method for radio buttons
         GameScene gs = new GameScene();
