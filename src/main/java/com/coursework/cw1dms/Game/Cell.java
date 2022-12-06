@@ -13,9 +13,21 @@ import javafx.scene.text.Text;
  */
 
 public class Cell{
+    /**
+     * Defines the properties of the cell
+     */
     private final Rectangle rectangle;
-    private final Group root;
+    /**
+     * root containing all the elements at that instance
+     */
+    private Group root;
+    /**
+     * Instance of Public Class Text();
+     */
     private Text textClass;
+    /**
+     * Check whether there have been any changes to the cell
+     */
     private boolean modify = false;
 
     /**
@@ -38,8 +50,8 @@ public class Cell{
 
     /**
      *
-     * @param x used for setting the number of columns of grid
-     * @param y used for setting the number of rows of grid
+     * @param x position index of rows
+     * @param y position index of column
      * @param scale used to set the height of each individual rectangle
      * @param root used to set the width of each individual rectangle
      */
@@ -50,12 +62,19 @@ public class Cell{
         rectangle.setY(y); // set the number of rows for the grid
         rectangle.setHeight(scale); // set the height of each individual rectangle in the grid
         rectangle.setWidth(scale); // set the width of each individual rectangle in the grid
-        this.root = root;
+        setRoot(root);
         rectangle.setFill(Color.rgb(224, 226, 226, 0.5));
-        this.textClass = TextMaker.getSingleInstance().madeText("0", x, y, root);
-        root.getChildren().add(rectangle); //used to show the whole grid in the GameScene
+        this.textClass = TextMaker.getSingleInstance().madeText("0", x, y, root, GameScene.getLENGTH());
+        getRoot().getChildren().add(rectangle); //used to show the whole grid in the GameScene
     }
 
+    public Group getRoot(){
+        return root;
+    }
+
+    public void setRoot(Group root){
+        this.root=root;
+    }
     /**
      * Method to set the property of this.textClass to the new textClass
      * @param textClass text from the grid.
@@ -90,7 +109,7 @@ public class Cell{
      * cell after it has been added. After setting the text to cell.getNumber() it would call the method
      * to change the color of the cell
      *
-     * @param cell
+     * @param cell represents an individual cell and its properties
      */
     void adder(Cell cell) {
         cell.getTextClass().setText((cell.getNumber() + this.getNumber()) + ""); // get number after added

@@ -1,6 +1,7 @@
 package com.coursework.cw1dms.ControllerClasses;
 
 import com.coursework.cw1dms.Account.Account;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,26 +23,49 @@ import java.io.IOException;
  */
 public class Leaderboard {
 
+    /**
+     * Empty constructor for class Leaderboard
+     */
     public Leaderboard(){
     }
 
+    /**
+     * ListView used to store the 4x4 High Score List
+     */
     @FXML
     private ListView<String> L4; // generify ListView
 
+    /**
+     * ListView used to store the 5x5 High Score List
+     */
     @FXML
     private ListView<String> L5; // generify ListView
 
+    /**
+     * ListView used to store the 6x6 High Score List
+     */
     @FXML
     private ListView<String> L6; // generify ListView
 
+    /**
+     * Button which would be tied with method: goBack, to go back to Main Menu
+     */
     @FXML
     private Button back;
-
+    /**
+     * Stage for Leaderboard.fxml
+     */
     private Stage leaderStage;
 
+    /**
+     * Pane for Leaderboard.fxml
+     */
     @FXML
     private AnchorPane leaderPane;
 
+    /**
+     * Button which wouild be tied with method: exitLeaderboard(), to exit the game.
+     */
     @FXML
     private Button exitButton;
 
@@ -74,15 +98,24 @@ public class Leaderboard {
      * main menu.
      *
      * @param event grabs current scene
-     * @throws IOException if file is not loaded
      */
-    public void goBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/coursework/cw1dms/Menu.fxml")); //load the fxml file
-        Parent leaderRoot = loader.load();
-        leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene leaderScene = new Scene(leaderRoot); //made leaderScene a local variable to simplify code
-        leaderStage.setScene(leaderScene);
-        leaderStage.show();
+    public void goBack(ActionEvent event) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/coursework/cw1dms/Menu.fxml")); //load the fxml file
+                Parent leaderRoot = null;
+                try {
+                    leaderRoot = loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene leaderScene = new Scene(leaderRoot); //made leaderScene a local variable to simplify code
+                leaderStage.setScene(leaderScene);
+                leaderStage.show();
+            }
+        });
     }
 
     /**
@@ -92,14 +125,15 @@ public class Leaderboard {
      */
     public void exitLeaderboard(ActionEvent event){ //implementation of exitGame Button
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
-        alert.setHeaderText("You're about to exit the Game!");
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Exit");
+            alert.setHeaderText("You're about to exit the Game!");
 
-        if(alert.showAndWait().get() == ButtonType.OK){
-            leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
-            leaderStage.close();
-        }
-
+            if(alert.showAndWait().get() == ButtonType.OK){
+                leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
+                leaderStage.close();
+            }
+        });
     }
 }

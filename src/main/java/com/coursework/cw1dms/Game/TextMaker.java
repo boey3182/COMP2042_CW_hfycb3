@@ -33,21 +33,20 @@ class TextMaker {
      * Creates a new Text Instance and content of it would be based on input. Location
      * would be based on xCell, yCell
      *
-     * @param input content of the text
-     * @param xCell row index
-     * @param yCell column index
-     * @param root node that contains all the components in GameScene class
+     * @param input  content of the text
+     * @param xCell  row index
+     * @param yCell  column index
+     * @param root   node that contains all the components in GameScene class
+     * @param length
      * @return text instance
      */
 
-    Text madeText(String input, double xCell, double yCell, Group root) {
-        double length = GameScene.getLENGTH();
+    static Text madeText(String input, double xCell, double yCell, Group root, double length) {
         double fontSize = (3 * length) / 7.0;
         Text text = new Text(input);
         text.setFont(Font.font(fontSize));
         text.relocate((xCell + (1.2)* length / 7.0), (yCell + 2 * length / 7.0));
         text.setFill(Color.WHITE);
-
         return text;
     }
 

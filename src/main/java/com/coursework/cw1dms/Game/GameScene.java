@@ -20,16 +20,52 @@ import java.util.Random;
  * @author Chun Hong Boey
  */
 public class GameScene{
-    private static int n; //<-n value is now controlled by radio buttons, in Controller.java
+    /**
+     * variable that controls the dimension of grid
+     */
+    public static int n; //<-n value is now controlled by radio buttons, in Controller.java
+    /**
+     * distance between each individual cell
+     */
     private final static int distanceBetweenCells = 10;
+    /**
+     * Length of the grid
+     */
     private static double LENGTH;
+    /**
+     * Single instance of the class TextMaker
+     */
     private final TextMaker textMaker = TextMaker.getSingleInstance();
-    private final Cell[][] cells = new Cell[n][n];
+
+    /**
+     * Defines the number of cells
+     */
+    public static Cell[][] cells = new Cell[n][n];
+    /**
+     * root that would be store all elements at a given instance.
+     */
     private Group root;
+    /**
+     * variable that would keep track of score
+     */
     private long score = 0;
-    private long sc1=0; // another variable that worked side by side with boolean added.
-    private boolean added=false; // variable added to check whether the score was incremented
-    private int ll,lr,ul,dl=0; // all variables here were used in cooperation with their methods , so if moveLeft returned 1 then ll.moveLeft would ==1
+    /**
+     * variable that worked side by side with boolean added.
+     */
+    private long sc1=0;
+
+    /**
+     *variable added to check whether the score was incremented(ref to line 539)
+     */
+    private boolean added=false;
+    /**
+     * all variables here were used in cooperation with their methods , so if moveLeft returned 1 then ll.moveLeft would ==1
+     */
+    private int ll,lr,ul,dl=0;
+
+    /**
+     * variables used to return whether there was any attempt of movement by user
+     */
     private int x,y=0;
 
     /**
@@ -37,7 +73,7 @@ public class GameScene{
      * the specific n number , the height and the distance between cells
      * @param number used to overwrite variable n;
      */
-    public void setN(int number) {
+    public static void setN(int number) {
         n = number;
         int HEIGHT = 700;
         LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
@@ -63,7 +99,7 @@ public class GameScene{
     /**
      * Method used to randomly fill number "2" or "4" at a random space in the cells
      */
-    private void randomFillNumber() {  //remove int turn as it was redundant
+    public void randomFillNumber() {  //remove int turn as it was redundant
 
         Cell[][] emptyCells = new Cell[n][n];
         int a = 0;
@@ -98,12 +134,12 @@ public class GameScene{
             xCell = random.nextInt(aForBound+1);
             yCell = random.nextInt(bForBound+1);
         if (putTwo) {
-            text = textMaker.madeText("2", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root);
+            text = textMaker.madeText("2", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root,getLENGTH());
             emptyCells[xCell][yCell].setTextClass(text);
             root.getChildren().add(text);
             emptyCells[xCell][yCell]. setColorByNumber(2);
         } else {
-            text = textMaker.madeText("4", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root);
+            text = textMaker.madeText("4", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root,getLENGTH());
             emptyCells[xCell][yCell].setTextClass(text);
             root.getChildren().add(text);
             emptyCells[xCell][yCell].setColorByNumber(4);
@@ -120,7 +156,7 @@ public class GameScene{
      * gotten 2048
      *
      */
-    private int haveEmptyCell() {
+    public int haveEmptyCell() {
         for (int i= 0 ; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if(cells[i][j].getNumber() == 2048)
@@ -148,7 +184,7 @@ public class GameScene{
      * @param direct represents the current move
      * @return the new location on where the cell should go
      */
-    private int passDestination(int i, int j, char direct) {
+    public int passDestination(int i, int j, char direct) {
         int coordinate = j;
         if (direct == 'l') { // when user decides to go left
             for (int k = j - 1; k >= 0; k--) { // traverse from the furthest left to the right
@@ -203,7 +239,7 @@ public class GameScene{
      * Method detects when user moves left, if the user moves left then method would return y=1
      * @return y=1 when user presses left
      */
-    private int moveLeft() {
+    public int moveLeft() {
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < n; j++) {
                 x=moveHorizontally(i, j, passDestination(i, j, 'l'), -1);
@@ -221,7 +257,7 @@ public class GameScene{
      * Method detects when user moves right, if the user moves right then method would return y=1
      * @return y=1 when user presses right
      */
-    private int moveRight() {
+    public int moveRight() {
         for (int i = 0; i < n; i++) {
             for (int j = n - 1; j >= 0; j--) {
                 x=moveHorizontally(i, j, passDestination(i, j, 'r'), 1);
@@ -236,7 +272,7 @@ public class GameScene{
      * Method detects when user moves up, if the user moves up then method would return y=1
      * @return y=1 when user presses up
      */
-    private int moveUp() {
+    public int moveUp() {
         for (int j = 0; j < n; j++) {
             for (int i = 1; i < n; i++) {
                 x=moveVertically(i, j, passDestination(i, j, 'u'), -1); // if moveVertically were to return 1
@@ -252,7 +288,7 @@ public class GameScene{
      * Method detects when user moves down, if the user moves down then method would return y=1
      * @return y=1 when user presses down
      */
-    private int moveDown() {
+    public int moveDown() {
         for (int j = 0; j < n; j++) {
             for (int i = n - 1; i >= 0; i--) {
                 x=moveVertically(i, j, passDestination(i, j, 'd'), 1); // if moveVertically were to return 1
@@ -272,16 +308,13 @@ public class GameScene{
      * @param sign indication of which movement, up and left is -1, down and right is 1
      * @return true if destination cell = current cell, return false otherwise
      */
-    private boolean isValidDesH(int i, int j, int des, int sign) {
+    public boolean isValidDesH(int i, int j, int des, int sign) {
         if (des + sign < n && des + sign >= 0) {
             return cells[i][des + sign].getNumber() == cells[i][j].getNumber() && !cells[i][des + sign].getModify()
                     && cells[i][des + sign].getNumber() != 0;
         }
         return false;
     }
-
-
-
     /**
      *
      * Method ensures that: cells are moved correctly according to user input, and method detects movement,
@@ -293,7 +326,7 @@ public class GameScene{
      * @param sign indication of which movement, up and left is -1, down and right is 1
      * @return 1 if moved, 0 otherwise
      */
-    private int moveHorizontally(int i, int j, int des, int sign) {
+    public int moveHorizontally(int i, int j, int des, int sign) {
         int x,y;
         if (isValidDesH(i, j, des, sign)) {
             cells[i][des+sign].setModify(true);   //ref to moveVertically
@@ -321,7 +354,7 @@ public class GameScene{
      * @param sign indication of which movement, up and left is -1, down and right is 1
      * @return true if destination cell = current cell, return false otherwise
      */
-    private boolean isValidDesV(int i, int j, int des, int sign) {
+    public boolean isValidDesV(int i, int j, int des, int sign) {
         if (des + sign < n && des + sign >= 0)
             return cells[des + sign][j].getNumber() == cells[i][j].getNumber() && !cells[des + sign][j].getModify()
                     && cells[des + sign][j].getNumber() != 0;
@@ -339,7 +372,7 @@ public class GameScene{
      * @param sign indication of which movement, up and left is -1, down and right is 1
      * @return 1 if moved, 0 otherwise
      */
-    private int moveVertically(int i, int j, int des, int sign) {
+    public int moveVertically(int i, int j, int des, int sign) {
         if (isValidDesV(i, j, des, sign)) {
             cells[des+sign][j].setModify(true);      // replaced [des+sign] instead of cells[des] , and swapped it to the top, this was to capture
             cells[i][j].adder(cells[des + sign][j]); // everytime the adder method was called to += to score
@@ -363,7 +396,7 @@ public class GameScene{
      * @param j column index
      * @return true if the adjacent cells are the same, false if not
      */
-    private boolean haveSameNumberNearly(int i, int j) {
+    public boolean haveSameNumberNearly(int i, int j) {
         if (i < n - 1 && j < n - 1) {
             if (cells[i + 1][j].getNumber() == cells[i][j].getNumber())
                 return true;
@@ -376,7 +409,7 @@ public class GameScene{
      * Method checks if there are any possible moves anymore on the board
      * @return true if there's adjacent cells are the same, false if not
      */
-    private boolean canNotMove() {
+    public boolean canNotMove() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (haveSameNumberNearly(i, j)) {
@@ -391,7 +424,7 @@ public class GameScene{
      * Method accumulates score according to cells that were added, eg:- Score is 8 when two "4" cells are added
      *
      */
-    private void sumCellNumbersToScore() {
+    public void sumCellNumbersToScore() {
         int empty_cell = GameScene.this.haveEmptyCell();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -440,7 +473,8 @@ public class GameScene{
     public void game(Scene gameScene, Group root, Stage primaryStage, Color color) {
 
         //creates all the cells for the grid
-        this.root = root;
+        this.root=root;
+        cells = new Cell[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 cells[i][j] = new Cell((j) * LENGTH + (j + 1) * distanceBetweenCells,

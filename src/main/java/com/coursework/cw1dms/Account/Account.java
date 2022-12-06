@@ -143,7 +143,7 @@ public class Account implements Comparable<Account> {
      */
     public void readAccount(Leaderboard leader_ctrl){ //
 
-            File find = new File("Accounts/"+getLevelValue()+"-AccountList.txt"); // eg:- find file from directory Accounts/4-AccountList
+            File find = new File("AccountsList/"+getLevelValue()+"-AccountList.txt"); // eg:- find file from directory Accounts/4-AccountList
             Scanner reader;
             String st1, st2 = null;
             try {
@@ -195,7 +195,7 @@ public class Account implements Comparable<Account> {
      */
     public void writeAccount(Leaderboard leader_ctrl){
         try {
-            FileWriter writeAccount = new FileWriter("Accounts/"+getLevelValue()+"-AccountList.txt"); //after sorting the arraylist, write it to its respective file
+            FileWriter writeAccount = new FileWriter("AccountsList/"+getLevelValue()+"-AccountList.txt"); //after sorting the arraylist, write it to its respective file
             for(int i = 0; i< Account.accounts.size(); i++) {
                 writeAccount.write(String.valueOf(Account.accounts.get(i))); //write all values of accounts arraylist until empty
             }

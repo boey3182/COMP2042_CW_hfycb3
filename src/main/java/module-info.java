@@ -4,8 +4,6 @@ module com.coursework.cw1dms {
     requires org.jetbrains.annotations;
     requires javafx.media;
 
-
-    opens com.coursework.cw1dms to javafx.fxml;
     exports com.coursework.cw1dms;
     exports com.coursework.cw1dms.Game;
     opens com.coursework.cw1dms.Game to javafx.fxml;

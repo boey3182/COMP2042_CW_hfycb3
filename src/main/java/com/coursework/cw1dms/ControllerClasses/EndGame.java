@@ -27,22 +27,48 @@ import java.io.IOException;
  * @author Chun Hong Boey-modified
  */
 public class EndGame{
+    /**
+     * Single Instance of class EndGame
+     */
     private static EndGame singleInstance = null;
+    /**
+     * fxID for button exitButton, used to exit the game
+     */
     @FXML
     private Button exitButton;
+    /**
+     * fxID for button saveViewButton, used to save your username and view the leaderboard
+     */
     @FXML
     private Button saveViewButton;
+    /**
+     * fxID for AnchorPane in EndGame Scene
+     */
     @FXML
     private AnchorPane exitPane;
+    /**
+     * Label that shows the final score of the game
+     */
     @FXML
     private Label finalScore;
+    /**
+     * Textfield that allows user to input their username
+     */
     @FXML
     private TextField getUsername;
+    /**
+     * stage for EndGame Scene
+     */
 
     private Stage endStage;
-
+    /**
+     * scene for EndGame Scene
+     */
     private Scene endScene;
 
+    /**
+     * root for EndGame Scene
+     */
     private Parent endRoot;
 
 
