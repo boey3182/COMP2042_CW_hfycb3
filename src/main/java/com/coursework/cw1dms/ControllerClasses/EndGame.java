@@ -18,9 +18,6 @@ import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
-
-@SuppressWarnings("ALL")
-
 /**
  * The EndGame.java class is used as a controller for the FXML file: EndGameScene.fxml
  *
@@ -50,7 +47,7 @@ public class EndGame{
      * Label that shows the final score of the game
      */
     @FXML
-    private Label finalScore;
+    private Label finalScore,gameOver,scoreIndicate,saveScore,usernameIndicate;
     /**
      * Textfield that allows user to input their username
      */
@@ -59,7 +56,6 @@ public class EndGame{
     /**
      * stage for EndGame Scene
      */
-
     private Stage endStage;
     /**
      * scene for EndGame Scene
@@ -70,6 +66,11 @@ public class EndGame{
      * root for EndGame Scene
      */
     private Parent endRoot;
+
+    /**
+     * Color variable to store color value
+     */
+    private Color color;
 
 
     public EndGame(){
@@ -100,12 +101,48 @@ public class EndGame{
             EndGame eg = loader.getController(); //use loader to get controller to get label( if this is not done, this.finalscore will be null)
 
             eg.finalScore.setText(""+score); // show final score
-            eg.exitPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY))); //change color of the EndGameScene -> EndGameScene.fxml
+
+            endGameSceneStyling(eg,color);
+            setColor(color);
 
             endScene = new Scene(endRoot);
             primaryStage.setScene(endScene);
             primaryStage.setResizable(false);
             primaryStage.show();
+    }
+
+    /**
+     * Setter for this class's variable color
+     * @param color value chosen from main menu
+     */
+    public void setColor(Color color){
+        this.color=color;
+    }
+
+    /**
+     * Getter for this class's variable color
+     * @return color chosen from main menu
+     */
+    public Color getColor(){
+        return color;
+    }
+
+    /**
+     * Method is responsible for styling the endGameScene
+     *
+     * @param eg controller instance of EndGame
+     * @param color color from main menu
+     */
+
+    public void endGameSceneStyling(EndGame eg, Color color){
+        if(color!=null) {
+            eg.exitPane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+            eg.gameOver.setTextFill(color.invert());
+            eg.scoreIndicate.setTextFill(color.invert());
+            eg.usernameIndicate.setTextFill(color.invert());
+            eg.saveScore.setTextFill(color.invert());
+            eg.finalScore.setTextFill(color.invert());
+        }
     }
 
     /**

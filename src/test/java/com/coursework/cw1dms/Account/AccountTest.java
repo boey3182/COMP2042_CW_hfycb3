@@ -20,39 +20,27 @@ class AccountTest {
 
     @Test
     void testCompareTo() {
-        // Setup
         final Account o = new Account(400L, "username");
-
-        // Run the test
         final int result = accountTest.compareTo(o);
-
-        // Verify the results
         assertEquals(400, result);
     }
 
     @Test
     void testMakeNewAccount() {
-
         accountTest.makeNewAccount("username", 400L);
-
     }
 
     @Test
     void testSortAccount() {
-
         final ArrayList<Account> accounts = new ArrayList<>(List.of(new Account(400L, "username")));
-
         final Leaderboard leader_ctrl = new Leaderboard();
-
         accountTest.sortAccount(accounts, leader_ctrl);
 
     }
 
     @Test
     void testWriteAccount() {
-
         final Leaderboard leader_ctrl = new Leaderboard();
-
         accountTest.writeAccount(leader_ctrl);
 
     }

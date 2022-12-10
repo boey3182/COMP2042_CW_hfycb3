@@ -5,14 +5,15 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ import java.io.IOException;
  *
  * @author Chun Hong Boey-modified
  */
-public class Leaderboard {
+public class Leaderboard{
 
     /**
      * Empty constructor for class Leaderboard
@@ -64,10 +65,13 @@ public class Leaderboard {
     private AnchorPane leaderPane;
 
     /**
-     * Button which wouild be tied with method: exitLeaderboard(), to exit the game.
+     * Button which would be tied with method: exitLeaderboard(), to exit the game.
      */
     @FXML
     private Button exitButton;
+
+    @FXML
+    private Label LabelLeaderboard,LabelLvl4,LabelLvl5,LabelLvl6;
 
     /**
      * Method updates a specific listview from fxml file with usernames and score which are sorted from Highest to lowest,
@@ -91,6 +95,20 @@ public class Leaderboard {
         }
         //If the user decides to play the 4 by 4 grid, the LeaderboardScene would only show the Leaderboard of the gridLevel that the user played,
         //in this case that would be 4x4. So only 4x4 grid leaderboard would show, this is to indicate which level he chose to play.
+        leaderboardStyling();
+    }
+
+    /**
+     * Method used to style the leaderboard-scene
+     */
+    public void leaderboardStyling(){
+        if (EndGame.getInstance().getColor()!=null){
+            leaderPane.setBackground(new Background(new BackgroundFill(EndGame.getInstance().getColor(),CornerRadii.EMPTY,Insets.EMPTY)));
+            LabelLeaderboard.setTextFill(EndGame.getInstance().getColor().invert());
+            LabelLvl4.setTextFill(EndGame.getInstance().getColor().invert());
+            LabelLvl5.setTextFill(EndGame.getInstance().getColor().invert());
+            LabelLvl6.setTextFill(EndGame.getInstance().getColor().invert());
+        }
     }
 
     /**
@@ -104,7 +122,7 @@ public class Leaderboard {
             @Override
             public void run() {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/coursework/cw1dms/Menu.fxml")); //load the fxml file
-                Parent leaderRoot = null;
+                Parent leaderRoot;
                 try {
                     leaderRoot = loader.load();
                 } catch (IOException e) {
@@ -112,6 +130,10 @@ public class Leaderboard {
                 }
                 leaderStage =(Stage)((Node)event.getSource()).getScene().getWindow();
                 Scene leaderScene = new Scene(leaderRoot); //made leaderScene a local variable to simplify code
+
+                Controller MenuCtrl = loader.getController();//grab Controller instance
+                MenuCtrl.changeColorFromLeaderboard(EndGame.getInstance().getColor());//change color of pane
+
                 leaderStage.setScene(leaderScene);
                 leaderStage.show();
             }

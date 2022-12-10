@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -36,7 +37,6 @@ public class GameScene{
      * Single instance of the class TextMaker
      */
     private final TextMaker textMaker = TextMaker.getSingleInstance();
-
     /**
      * Defines the number of cells
      */
@@ -53,7 +53,6 @@ public class GameScene{
      * variable that worked side by side with boolean added.
      */
     private long sc1=0;
-
     /**
      *variable added to check whether the score was incremented(ref to line 539)
      */
@@ -62,7 +61,6 @@ public class GameScene{
      * all variables here were used in cooperation with their methods , so if moveLeft returned 1 then ll.moveLeft would ==1
      */
     private int ll,lr,ul,dl=0;
-
     /**
      * variables used to return whether there was any attempt of movement by user
      */
@@ -75,7 +73,7 @@ public class GameScene{
      */
     public static void setN(int number) {
         n = number;
-        int HEIGHT = 700;
+        int HEIGHT = 600;
         LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
     }
 
@@ -441,11 +439,14 @@ public class GameScene{
      *
      * @param text new text "SCORE"
      */
-    public void TextScore(Text text){
+    public void TextScore(Text text, Color color){
         root.getChildren().add(text);
         text.setText("SCORE :");
-        text.setFont(Font.font(30));
-        text.relocate(750, 100);
+        if(color!=null) {
+            text.setFill(color.invert());
+        }
+        text.setFont(Font.font(25));
+        text.relocate(405, 51);
     }
 
     /**
@@ -453,13 +454,29 @@ public class GameScene{
      *
      * @param scoreText new text "0"
      */
-    public void ShowScore(Text scoreText){
+    public void ShowScore(Text scoreText,Color color){
         root.getChildren().add(scoreText);
-        scoreText.relocate(750, 150);
-        scoreText.setFont(Font.font(20));
+        scoreText.relocate(500, 65);
+        if(color!=null) {
+            scoreText.setFill(color.invert());
+        }
+        scoreText.setFont(Font.font(25));
         scoreText.setText("0");
     }
 
+    /**
+     * Method used to show the "2048 Title"
+     * @param title "2048" text properties
+     */
+    private void ShowTitle(Text title, Color color) {
+        root.getChildren().add(title);
+        title.setText("2048");
+        if(color!=null) {
+            title.setFill(color.invert());
+        }
+        title.setFont(Font.font("Clear Sans",FontWeight.BOLD,50));
+        title.relocate(15, 35);
+    }
 
     /**
      * Method contains initial settings for the start of the game, and logic such as: you can only
@@ -478,15 +495,20 @@ public class GameScene{
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 cells[i][j] = new Cell((j) * LENGTH + (j + 1) * distanceBetweenCells,
-                        (i) * LENGTH + (i + 1) * distanceBetweenCells, LENGTH, root);
+                        (i) * LENGTH + (i + 10) * distanceBetweenCells, LENGTH, root);
             }
 
         }
 
         Text text = new Text();
         Text scoreText = new Text();
-        TextScore(text);
-        ShowScore(scoreText);
+        Text title = new Text();
+
+        ShowTitle(title, color);
+        TextScore(text, color);
+        ShowScore(scoreText, color);
+
+
 
         randomFillNumber(); //removed turn
         randomFillNumber(); //removed turn

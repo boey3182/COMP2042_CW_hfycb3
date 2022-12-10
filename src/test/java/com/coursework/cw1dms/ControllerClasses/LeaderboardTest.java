@@ -19,27 +19,19 @@ class LeaderboardTest {
 
     @Test
     void testLeaderboardShow() throws Exception {
-
         leaderboardUnderTest.leaderboardShow(4);
-
     }
 
 
     @Test
     void testGoBack() {
-
         final ActionEvent event = new ActionEvent("o", null);
-
         Platform.startup(() -> leaderboardUnderTest.goBack(event));
-
     }
 
     @Test
     void testExitLeaderboard() {
-
         final ActionEvent event = new ActionEvent("o", null);
-
         Platform.startup(() -> leaderboardUnderTest.exitLeaderboard(event));
-
     }
 }

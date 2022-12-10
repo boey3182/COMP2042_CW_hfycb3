@@ -1,10 +1,13 @@
 package com.coursework.cw1dms.Game;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -49,6 +52,7 @@ class CellTest {
 
     @Test
     void testSetColorByNumber() {
+        cellTest.setTextClass(TextMaker.madeText("2", cellTest.getX(), cellTest.getY(), TestRoot,10));
         cellTest.setColorByNumber(2);
     }
 

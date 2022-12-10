@@ -37,7 +37,7 @@ class TextMaker {
      * @param xCell  row index
      * @param yCell  column index
      * @param root   node that contains all the components in GameScene class
-     * @param length
+     * @param length used for fontsize
      * @return text instance
      */
 

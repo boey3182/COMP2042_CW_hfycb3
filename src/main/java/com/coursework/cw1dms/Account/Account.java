@@ -61,7 +61,7 @@ public class Account implements Comparable<Account> {
      *This method compares this.account scores with another account score.
      *
      * @param o the object to be compared.
-     * @return 0 if it's the same , return > 0 if its bigger , return < 0 if its smaller
+     * @return 0 if it's the same , return more than  0 if its bigger , return less than 0 if its smaller
      *
      */
     @Override
@@ -115,7 +115,7 @@ public class Account implements Comparable<Account> {
     }
 
     /**
-     *  Method Adds user's username and score into the ArrayList<Account> accounts
+     *  Method Adds user's username and score into the ArrayList accounts
      *
      *
      *
@@ -169,7 +169,7 @@ public class Account implements Comparable<Account> {
     }
 
     /**
-     *Method that sorts the ArrayList<Account> accounts using BubbleSort, and calls method writeAccount
+     *Method that sorts the ArrayList accounts using BubbleSort, and calls method writeAccount
      *
      * @param accounts ArrayList that contains username/score either from user's input in textfield in EndGame or from the txt-file.
      * @param leader_ctrl controller instance that was brought forward by EndGame

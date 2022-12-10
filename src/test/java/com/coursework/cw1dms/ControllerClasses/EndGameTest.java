@@ -19,18 +19,13 @@ class EndGameTest {
 
     @Test
     void testExitGame() {
-
         final ActionEvent event = new ActionEvent("o", null);
-
         Platform.startup(() -> endGameTest.exitGame(event));
-
     }
 
     @Test
     void testSaveView(){
-
         final ActionEvent event = new ActionEvent("o", null);
-
         Platform.startup(() -> {
             try {
                 endGameTest.saveView(event);
@@ -44,8 +39,6 @@ class EndGameTest {
 
     @Test
     void testGetInstance() {
-
         final EndGame result = EndGame.getInstance();
-
     }
 }

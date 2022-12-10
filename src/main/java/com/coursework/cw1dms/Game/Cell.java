@@ -29,7 +29,6 @@ public class Cell{
      * Check whether there have been any changes to the cell
      */
     private boolean modify = false;
-
     /**
      * Sets the value of variable modify
      *
@@ -55,7 +54,6 @@ public class Cell{
      * @param scale used to set the height of each individual rectangle
      * @param root used to set the width of each individual rectangle
      */
-
     Cell(double x, double y, double scale, Group root) {
         rectangle = new Rectangle();
         rectangle.setX(x); //set the number of columns for the grid
@@ -68,10 +66,17 @@ public class Cell{
         getRoot().getChildren().add(rectangle); //used to show the whole grid in the GameScene
     }
 
+    /**
+     * Method to grab the root
+     * @return root
+     */
     public Group getRoot(){
         return root;
     }
 
+    /**
+     * Method to set the root
+     */
     public void setRoot(Group root){
         this.root=root;
     }
@@ -124,7 +129,6 @@ public class Cell{
      *
      * @param number the value of the cell
      */
-
     void setColorByNumber(int number) {
         switch (number) {
             case 0 -> rectangle.setFill(Color.rgb(224, 226, 226, 0.5));
@@ -171,10 +175,9 @@ public class Cell{
     }
 
     /**
-     * Method returns the property of the  Text textclass
-     * @return the property of the  Text textclass
+     * Method returns the property of the  Text class
+     * @return the property of the  Text class
      */
-
     private Text getTextClass() {
         return textClass;
     }

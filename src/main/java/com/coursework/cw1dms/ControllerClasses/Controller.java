@@ -7,10 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -52,7 +49,7 @@ public class Controller{ //removed redundant inheritance
      * ColorPicker variable of Menu.fxml
      */
     @FXML
-    private ColorPicker colorPicker;
+    public ColorPicker colorPicker;
     /**
      * Variable that would store the color of the colorPicker
      */
@@ -84,9 +81,13 @@ public class Controller{ //removed redundant inheritance
      */
     private MediaPlayer mediaPlayer;
 
+    @FXML
+    private Label GameTitle,LabelColorPicker,LabelLevel,LabelStartGame,LabelVideoDes;
+
     /**
      * Empty Constructor of class Controller
      */
+
     public Controller() {
     }
 
@@ -96,7 +97,27 @@ public class Controller{ //removed redundant inheritance
     public void changeColor() {
         color = colorPicker.getValue();
         pane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+        mainMenuStyling(color);
+    }
 
+
+    /**
+     * Setter method
+     *
+     * @param color value of color
+     */
+    public void setColor(Color color){
+        this.color=color;
+    }
+
+
+    /**
+     *Method used to change the background of the main menu if user chooses to play again
+     */
+    public void changeColorFromLeaderboard(Color color){
+        pane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+        setColor(color);
+        mainMenuStyling(color);
     }
 
     /**
@@ -128,6 +149,7 @@ public class Controller{ //removed redundant inheritance
      */
 
     public void switchScenes(ActionEvent event) {
+
         if(!radioButton4.isSelected() && !radioButton5.isSelected() && !radioButton6.isSelected()){ // added error handling for when user does not click on radio button to choose level
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Empty Selection");
@@ -135,8 +157,10 @@ public class Controller{ //removed redundant inheritance
             alert.showAndWait().get();// do nothing and go back
         }
         else {
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, colorPicker.getValue());
+            Scene gameScene = new Scene(gameRoot, WIDTH-300, HEIGHT, color);
+
 
             Rectangle backgroundOfMenu = new Rectangle(240, 120, Color.rgb(120, 120, 120, 0.2));
             backgroundOfMenu.setX((float) WIDTH / 2 - 120);
@@ -149,6 +173,7 @@ public class Controller{ //removed redundant inheritance
             GameScene startGame = new GameScene();
             startGame.game(gameScene, gameRoot, stage, color);
 
+
             stage.setScene(gameScene);
             stage.setResizable(false);
             stage.show();
@@ -156,9 +181,27 @@ public class Controller{ //removed redundant inheritance
     }
 
     /**
+     * Method used to change color of text accordingly to color picker
+     * @param color value from the colorpicker
+     */
+    public void mainMenuStyling(Color color){
+        if(color!=null) {
+            GameTitle.setTextFill(color.invert());
+
+            LabelColorPicker.setTextFill(color.invert());
+            LabelLevel.setTextFill(color.invert());
+            LabelStartGame.setTextFill(color.invert());
+            LabelVideoDes.setTextFill(color.invert());
+
+            radioButton4.setTextFill(color.invert());
+            radioButton5.setTextFill(color.invert());
+            radioButton6.setTextFill(color.invert());
+        }
+    }
+
+    /**
      * Method used to change the Value "N" of the GameScene.java, this is to create new Levels for the game
      */
-
     public void setNValue(){ // method for radio buttons
         GameScene gs = new GameScene();
         if(radioButton4.isSelected()){ //if the specific radio button is selected, the value "n" in GameScene would change to its respective value
