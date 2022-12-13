@@ -44,7 +44,7 @@ public class EndGame{
     @FXML
     private AnchorPane exitPane;
     /**
-     * Label that shows the final score of the game
+     * Labels used in EndGameScene.fxml
      */
     @FXML
     private Label finalScore,gameOver,scoreIndicate,saveScore,usernameIndicate;
@@ -52,7 +52,7 @@ public class EndGame{
      * Textfield that allows user to input their username
      */
     @FXML
-    private TextField getUsername;
+    public TextField getUsername;
     /**
      * stage for EndGame Scene
      */
@@ -72,7 +72,6 @@ public class EndGame{
      */
     private Color color;
 
-
     public EndGame(){
     }
 
@@ -85,7 +84,8 @@ public class EndGame{
         if(singleInstance == null)
             singleInstance= new EndGame();
         return singleInstance;
-    }
+    } //Singleton design pattern but with the public classes, as they
+                                             // had to under JUnit Testing
     /**
      *
      * @param primaryStage used to set scene to EndGameScene.fxml
@@ -117,7 +117,7 @@ public class EndGame{
      */
     public void setColor(Color color){
         this.color=color;
-    }
+    } //encapsulation
 
     /**
      * Getter for this class's variable color
@@ -125,7 +125,7 @@ public class EndGame{
      */
     public Color getColor(){
         return color;
-    }
+    } //encapsulation
 
     /**
      * Method is responsible for styling the endGameScene

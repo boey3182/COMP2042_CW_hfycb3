@@ -1,6 +1,8 @@
 package com.coursework.cw1dms.Game;
 
 import com.coursework.cw1dms.ControllerClasses.EndGame;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Random;
 
@@ -132,7 +135,7 @@ public class GameScene{
             xCell = random.nextInt(aForBound+1);
             yCell = random.nextInt(bForBound+1);
         if (putTwo) {
-            text = textMaker.madeText("2", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root,getLENGTH());
+            text = textMaker.madeText("2", emptyCells[xCell][yCell].getX(), emptyCells[xCell][yCell].getY(), root,getLENGTH());//usage of singleton
             emptyCells[xCell][yCell].setTextClass(text);
             root.getChildren().add(text);
             emptyCells[xCell][yCell]. setColorByNumber(2);
@@ -447,7 +450,7 @@ public class GameScene{
         }
         text.setFont(Font.font(25));
         text.relocate(405, 51);
-    }
+    }  // broke into smaller methods to support single-responsibility
 
     /**
      * Method are properties of the word, and also adds the word in GameScene
@@ -462,7 +465,7 @@ public class GameScene{
         }
         scoreText.setFont(Font.font(25));
         scoreText.setText("0");
-    }
+    } // broke into smaller methods to support single-responsibility
 
     /**
      * Method used to show the "2048 Title"
@@ -476,6 +479,19 @@ public class GameScene{
         }
         title.setFont(Font.font("Clear Sans",FontWeight.BOLD,50));
         title.relocate(15, 35);
+
+    } // broke into smaller methods to support single-responsibility
+
+    /**
+     * Method that spins the whole entire GameScene --> Easter egg!
+     */
+    public void spin() {
+        RotateTransition translate = new RotateTransition();
+        translate.setNode(root);
+        translate.setDuration(Duration.seconds(60));
+        translate.setCycleCount(TranslateTransition.INDEFINITE);
+        translate.setByAngle(360);
+        translate.play();
     }
 
     /**
@@ -523,6 +539,8 @@ public class GameScene{
                 this.ll = GameScene.this.moveLeft(); // this.ll will initially =0;
             } else if (key.getCode() == KeyCode.RIGHT) {
                 this.lr = GameScene.this.moveRight(); // this.lr will initially =0;
+            } else if (key.getCode()==KeyCode.S) { //Easter egg
+                spin();
             }
             sc1 = score;
             GameScene.this.sumCellNumbersToScore();

@@ -40,6 +40,11 @@ public class Controller{ //removed redundant inheritance
     static final int HEIGHT = 700;
 
     /**
+     * Used by radioButtons
+     */
+    public ToggleGroup toggleRoot;
+
+    /**
      * Pane of Menu.fxml
      */
     @FXML
@@ -58,6 +63,7 @@ public class Controller{ //removed redundant inheritance
     /**
      * New root that would store all the components that it is tied to
      */
+    @FXML
     private final Group gameRoot = new Group();
 
     /**
@@ -83,6 +89,7 @@ public class Controller{ //removed redundant inheritance
 
     @FXML
     private Label GameTitle,LabelColorPicker,LabelLevel,LabelStartGame,LabelVideoDes;
+
 
     /**
      * Empty Constructor of class Controller
@@ -203,19 +210,17 @@ public class Controller{ //removed redundant inheritance
      * Method used to change the Value "N" of the GameScene.java, this is to create new Levels for the game
      */
     public void setNValue(){ // method for radio buttons
-        GameScene gs = new GameScene();
         if(radioButton4.isSelected()){ //if the specific radio button is selected, the value "n" in GameScene would change to its respective value
-            gs.setN(4);
+            GameScene.setN(4);
         }
 
         else if(radioButton5.isSelected()){
-            gs.setN(5);
+            GameScene.setN(5);
         }
 
         else {
-            gs.setN(6);
+            GameScene.setN(6);
         }
 
     }
-
 }

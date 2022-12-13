@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
 
@@ -20,14 +20,16 @@ class AccountTest {
 
     @Test
     void testCompareTo() {
-        final Account o = new Account(400L, "username");
+        final Account o = new Account(300L, "username");
         final int result = accountTest.compareTo(o);
-        assertEquals(400, result);
+        assertEquals(-1, result);
     }
 
     @Test
     void testMakeNewAccount() {
         accountTest.makeNewAccount("username", 400L);
+        assertNotNull(accountTest.getScore());
+        assertNotNull(accountTest.getUserName());
     }
 
     @Test

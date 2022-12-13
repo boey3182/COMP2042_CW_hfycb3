@@ -76,7 +76,7 @@ public class Account implements Comparable<Account> {
      */
     public long getScore() {
         return score;
-    }
+    } //encapsulation
 
     /**
      * Setter for variable score
@@ -85,7 +85,7 @@ public class Account implements Comparable<Account> {
      */
     public void setScore(long score){
         this.score=score;
-    }
+    } //encapsulation
     /**
      * This method returns variable: username.
      *
