@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * The Leaderboard.java class is used as a controller for the FXML file: Leaderboard.fxml
  *
- * @author Chun Hong Boey-modified
+ * @author Chun Hong Boey
  */
 public class Leaderboard{
 
