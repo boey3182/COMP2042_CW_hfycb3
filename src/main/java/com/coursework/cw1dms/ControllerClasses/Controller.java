@@ -87,6 +87,9 @@ public class Controller{ //removed redundant inheritance
      */
     private MediaPlayer mediaPlayer;
 
+    /**
+     * Labels used in Menu.fxml
+     */
     @FXML
     private Label GameTitle,LabelColorPicker,LabelLevel,LabelStartGame,LabelVideoDes;
 
@@ -94,7 +97,6 @@ public class Controller{ //removed redundant inheritance
     /**
      * Empty Constructor of class Controller
      */
-
     public Controller() {
     }
 
@@ -120,6 +122,8 @@ public class Controller{ //removed redundant inheritance
 
     /**
      *Method used to change the background of the main menu if user chooses to play again
+     *
+     * @param color value from colorPicker
      */
     public void changeColorFromLeaderboard(Color color){
         pane.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -143,7 +147,6 @@ public class Controller{ //removed redundant inheritance
     /**
      * Method used to pause the video
      */
-
     public void pauseVideo(){
         mediaPlayer.pause();
     }

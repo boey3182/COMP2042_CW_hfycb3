@@ -14,7 +14,6 @@ class TextMaker {
     /**
      * Empty Constructor of the class TextMaker
      */
-
     private TextMaker() {
 
     }
@@ -40,7 +39,6 @@ class TextMaker {
      * @param length used for fontsize
      * @return text instance
      */
-
     static Text madeText(String input, double xCell, double yCell, Group root, double length) {
         double fontSize = (3 * length) / 7.0;
         Text text = new Text(input);
@@ -55,7 +53,6 @@ class TextMaker {
      * @param first Text 1 that would be swapped relocated
      * @param second Text 2 that would be swapped and relocated
      */
-
     static void changeTwoText(Text first, Text second) {
         String temp;
         temp = first.getText();

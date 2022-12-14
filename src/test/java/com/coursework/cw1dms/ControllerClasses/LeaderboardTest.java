@@ -17,11 +17,6 @@ class LeaderboardTest {
         leaderboardUnderTest = new Leaderboard();
     }
 
-    @Test
-    void testLeaderboardShow() throws Exception {
-        leaderboardUnderTest.leaderboardShow(4);
-    }
-
 
     @Test
     void testGoBack() {

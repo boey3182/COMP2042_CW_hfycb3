@@ -72,6 +72,9 @@ public class EndGame{
      */
     private Color color;
 
+    /**
+     * Empty constructor for class EndGame.java
+     */
     public EndGame(){
     }
 
@@ -87,6 +90,7 @@ public class EndGame{
     } //Singleton design pattern but with the public classes, as they
                                              // had to under JUnit Testing
     /**
+     *Method used to show the EndGame Scene
      *
      * @param primaryStage used to set scene to EndGameScene.fxml
      * @param score used to show their final score in EndGameScene

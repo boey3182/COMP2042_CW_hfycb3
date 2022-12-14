@@ -1,6 +1,8 @@
 package com.coursework.cw1dms.Game;
 
 import com.coursework.cw1dms.ControllerClasses.EndGame;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -23,6 +25,8 @@ import java.util.Random;
  *
  * @author Chun Hong Boey
  */
+
+
 public class GameScene{
     /**
      * variable that controls the dimension of grid
@@ -441,6 +445,7 @@ public class GameScene{
      * Method are properties of the word, and also adds the word in GameScene
      *
      * @param text new text "SCORE"
+     * @param color value from ColorPicker, used to invert
      */
     public void TextScore(Text text, Color color){
         root.getChildren().add(text);
@@ -456,6 +461,7 @@ public class GameScene{
      * Method are properties of the word, and also adds the word in GameScene
      *
      * @param scoreText new text "0"
+     * @param color value from ColorPicker, used to invert
      */
     public void ShowScore(Text scoreText,Color color){
         root.getChildren().add(scoreText);
@@ -481,6 +487,41 @@ public class GameScene{
         title.relocate(15, 35);
 
     } // broke into smaller methods to support single-responsibility
+
+    /**
+     * Method shows the previously added number
+     * @param getNumberText Text of the previously added number
+     * @param color styling to be added to the Text
+     */
+    private void ShowGetNumber(Text getNumberText, Color color){
+        root.getChildren().add(getNumberText);
+        getNumberText.relocate(220, 75);
+        if(color!=null) {
+            getNumberText.setFill(color.invert());
+        }
+        getNumberText.setFont(Font.font(15));
+
+        if(score-sc1==0){
+            getNumberText.setText(null);
+        }
+
+        fade(getNumberText);
+    }
+
+    /**
+     * Method adds faded transition to the text
+     * @param getNumberText shows the previously added text
+     */
+    public void fade(Text getNumberText){
+        FadeTransition fadeGNT = new FadeTransition();
+        fadeGNT.setNode(getNumberText);
+        fadeGNT.setDuration(Duration.seconds(2.5));
+        fadeGNT.setCycleCount(TranslateTransition.INDEFINITE);
+        fadeGNT.setInterpolator(Interpolator.LINEAR);
+        fadeGNT.setFromValue(0);
+        fadeGNT.setToValue(100);
+        fadeGNT.play();
+    }
 
     /**
      * Method that spins the whole entire GameScene --> Easter egg!
@@ -519,11 +560,12 @@ public class GameScene{
         Text text = new Text();
         Text scoreText = new Text();
         Text title = new Text();
+        Text getNumberText = new Text();
 
         ShowTitle(title, color);
         TextScore(text, color);
         ShowScore(scoreText, color);
-
+        ShowGetNumber(getNumberText,color);
 
 
         randomFillNumber(); //removed turn
@@ -545,6 +587,11 @@ public class GameScene{
             sc1 = score;
             GameScene.this.sumCellNumbersToScore();
             scoreText.setText(score + "");
+
+            if(score-sc1!=0) {
+                getNumberText.setText("Previously added: +" + (score - sc1));
+
+            }
             // variable sc1 will check whether the score has been incremented or not --> sc1 would always be lesser than score,
             // because it would only start incrementing after adding two cells n+1 times. For example cells 2 and 2 would generate a score
             // of 4, but sc1 will remain 0.

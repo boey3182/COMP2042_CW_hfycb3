@@ -33,14 +33,6 @@ class AccountTest {
     }
 
     @Test
-    void testSortAccount() {
-        final ArrayList<Account> accounts = new ArrayList<>(List.of(new Account(400L, "username")));
-        final Leaderboard leader_ctrl = new Leaderboard();
-        accountTest.sortAccount(accounts, leader_ctrl);
-
-    }
-
-    @Test
     void testWriteAccount() {
         final Leaderboard leader_ctrl = new Leaderboard();
         accountTest.writeAccount(leader_ctrl);

@@ -10,9 +10,6 @@ class ControllerTest {
 
     private Controller controllerTest;
 
-
-
-
     @BeforeEach
     void setUp() {
         controllerTest = new Controller();
