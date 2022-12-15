@@ -11,6 +11,7 @@ IntelliJ IDEA Community Edition Project". After that make sure to change the "Ru
 make sure to run on Java Version: 19.0.1.
 
 or
+
 Open IntelliJ, and click on open, and find the folder "COMP2042ChunHongBoey". Make sure that you change the Run Configurations again, running on Java Version: 19.0.1
 
 
