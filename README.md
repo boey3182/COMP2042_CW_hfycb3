@@ -6,6 +6,7 @@ Download this repository as a zip file
 
 `<>Code -> Download as Zip`
 
+- Scenario 1
 Unzip file, right click on COMP2042ChunHongBoey and click on "Open Folder as
 IntelliJ IDEA Community Edition Project". After that make sure to change the "Run Configurations", 
 make sure to run on Java Version: 19.0.1.
@@ -14,9 +15,16 @@ or
 
 Open IntelliJ, and click on open, and find the folder "COMP2042ChunHongBoey". Make sure that you change the Run Configurations again, running on Java Version: 19.0.1
 
+- Scenario 2
+Unzip 2048.zip and Run the launch file given under the 2048 folder, (Ensure you have JRE and JDK installed!) --> Need to download zip file that I have handed in on Moodle.
+
 
 ## JavaDocs Documentation 
 Link: https://laughing-newton.103-233-0-73.plesk.page/
+
+or
+Path to Javadoc documentation:COMP2042BoeyChunHong\javadoc --> Need to download zip file that I have handed in on Moodle.
+
 
 ## A list of features that are implemented and are working properly
 - Users can save their score with any username they want
