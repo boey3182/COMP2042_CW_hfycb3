@@ -10,7 +10,7 @@ Download this repository as a zip file
 
 Unzip file, right click on COMP2042ChunHongBoey and click on "Open Folder as
 IntelliJ IDEA Community Edition Project". After that make sure to change the "Run Configurations", 
-make sure to run on Java Version: 19.0.1. ==[Just to be safe, do not extract the folder in another folder with the same name as the zip file to avoid directory issues make sure that when you extract there is no complications, This is an example of the directory of a successfully extracted file:- C:\Users\boey\Desktop\COMP2042BoeyChunHong]==
+make sure to run on Java Version: 19.0.1. == [Just to be safe, do not extract the folder in another folder with the same name as the zip file to avoid directory issues make sure that when you extract there is no complications, This is an example of the directory of a successfully extracted file:- C:\Users\boey\Desktop\COMP2042BoeyChunHong] ==
 
 or
 
