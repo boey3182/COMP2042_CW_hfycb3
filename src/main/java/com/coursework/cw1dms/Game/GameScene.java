@@ -43,7 +43,7 @@ public class GameScene{
     /**
      * Single instance of the class TextMaker
      */
-    private final TextMaker textMaker = TextMaker.getSingleInstance();
+    private final TextMaker textMaker = TextMaker.getSingleInstance(); //usage of singleton design pattern
     /**
      * Defines the number of cells
      */

@@ -63,6 +63,7 @@ public class Cell{
         setRoot(root);
         rectangle.setFill(Color.rgb(224, 226, 226, 0.5));
         this.textClass = TextMaker.getSingleInstance().madeText("0", x, y, root, GameScene.getLENGTH());
+        //usage of singleton design pattern
         getRoot().getChildren().add(rectangle); //used to show the whole grid in the GameScene
     }
 

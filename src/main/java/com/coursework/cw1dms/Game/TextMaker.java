@@ -26,7 +26,7 @@ class TextMaker {
         if (singleInstance == null)
             singleInstance = new TextMaker();
         return singleInstance;
-    }
+    } //singleton design pattern
 
     /**
      * Creates a new Text Instance and content of it would be based on input. Location
