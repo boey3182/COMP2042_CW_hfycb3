@@ -1,9 +1,9 @@
-package com.coursework.cw1dms.Game;
+package com.coursework.cw1dms.ModelClasses;
 import javafx.scene.Group;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.coursework.cw1dms.Game.GameScene.*;
+import static com.coursework.cw1dms.ModelClasses.GameScene.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;

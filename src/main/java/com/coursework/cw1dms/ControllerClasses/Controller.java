@@ -1,6 +1,6 @@
 package com.coursework.cw1dms.ControllerClasses;
 
-import com.coursework.cw1dms.Game.GameScene;
+import com.coursework.cw1dms.ModelClasses.GameScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

@@ -1,4 +1,4 @@
-package com.coursework.cw1dms;
+package com.coursework.cw1dms.ViewClasses;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try{
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/coursework/cw1dms/Menu.fxml")));
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
 

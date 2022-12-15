@@ -1,4 +1,4 @@
-package com.coursework.cw1dms.Game;
+package com.coursework.cw1dms.ModelClasses;
 
 import com.coursework.cw1dms.ControllerClasses.EndGame;
 import javafx.animation.FadeTransition;

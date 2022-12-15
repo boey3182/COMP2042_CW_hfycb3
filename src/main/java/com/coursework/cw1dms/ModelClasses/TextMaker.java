@@ -1,4 +1,4 @@
-package com.coursework.cw1dms.Game;
+package com.coursework.cw1dms.ModelClasses;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -7,8 +7,14 @@ import javafx.scene.text.Text;
 
 /**
  * TextMaker class holds methods that can change Texts or create Text instances
+ *
+ * @author Chun Hong Boey
  */
-class TextMaker {
+public class TextMaker {
+
+    /**
+     * Single instance of class TextMaker
+     */
     private static TextMaker singleInstance = null;
 
     /**
@@ -22,7 +28,7 @@ class TextMaker {
      * Method creates new Instance of the class
      * @return new Instance of the class
      */
-    static TextMaker getSingleInstance() {
+    public static TextMaker getSingleInstance() {
         if (singleInstance == null)
             singleInstance = new TextMaker();
         return singleInstance;
@@ -39,7 +45,7 @@ class TextMaker {
      * @param length used for fontsize
      * @return text instance
      */
-    static Text madeText(String input, double xCell, double yCell, Group root, double length) {
+    public static Text madeText(String input, double xCell, double yCell, Group root, double length) {
         double fontSize = (3 * length) / 7.0;
         Text text = new Text(input);
         text.setFont(Font.font(fontSize));
@@ -53,7 +59,7 @@ class TextMaker {
      * @param first Text 1 that would be swapped relocated
      * @param second Text 2 that would be swapped and relocated
      */
-    static void changeTwoText(Text first, Text second) {
+    public static void changeTwoText(Text first, Text second) {
         String temp;
         temp = first.getText();
         first.setText(second.getText());

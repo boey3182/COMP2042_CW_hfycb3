@@ -1,6 +1,6 @@
 package com.coursework.cw1dms.Account;
 import com.coursework.cw1dms.ControllerClasses.Leaderboard;
-import com.coursework.cw1dms.Game.GameScene;
+import com.coursework.cw1dms.ModelClasses.GameScene;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;

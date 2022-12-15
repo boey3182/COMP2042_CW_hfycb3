@@ -1,13 +1,10 @@
-package com.coursework.cw1dms.Game;
+package com.coursework.cw1dms.ModelClasses;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-
-import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

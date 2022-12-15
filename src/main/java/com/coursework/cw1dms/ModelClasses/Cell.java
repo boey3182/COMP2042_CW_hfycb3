@@ -1,4 +1,4 @@
-package com.coursework.cw1dms.Game;
+package com.coursework.cw1dms.ModelClasses;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;

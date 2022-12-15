@@ -1,4 +1,4 @@
-package com.coursework.cw1dms;
+package com.coursework.cw1dms.ViewClasses;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
