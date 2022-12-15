@@ -10,7 +10,7 @@ Download this repository as a zip file
 
 Unzip file, right click on COMP2042ChunHongBoey and click on "Open Folder as
 IntelliJ IDEA Community Edition Project". After that make sure to change the "Run Configurations", 
-make sure to run on Java Version: 19.0.1.
+make sure to run on Java Version: 19.0.1. [Just to be safe, do not extract the folder in the same name as the zip file]
 
 or
 
