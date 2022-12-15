@@ -23,7 +23,7 @@ import java.util.Random;
 /**
  * GameScene.java involves all the game logic regarding the 2048 game
  *
- * @author Chun Hong Boey
+ * @author Chun Hong Boey-modified
  */
 
 

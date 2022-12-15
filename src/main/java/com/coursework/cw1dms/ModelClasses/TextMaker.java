@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 /**
  * TextMaker class holds methods that can change Texts or create Text instances
  *
- * @author Chun Hong Boey
+ * @author Chun Hong Boey-modified
  */
 public class TextMaker {
 

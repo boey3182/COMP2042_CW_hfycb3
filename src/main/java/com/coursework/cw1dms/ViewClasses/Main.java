@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * Method where you run everything --> Main.java
  *
- * @author Chun Hong Boey
+ * @author Chun Hong Boey-modified
  */
 
 
