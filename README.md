@@ -11,13 +11,13 @@ IntelliJ IDEA Community Edition Project". After that make sure to change the "Ru
 make sure to run on Java Version: 19.0.1.
 
 or
-Open IntelliJ, and click on open, and find the folder "COMP2042ChunHongBoey". Make sure that you change the Run Configurations again, running on Java Version:
-19.0.1
+Open IntelliJ, and click on open, and find the folder "COMP2042ChunHongBoey". Make sure that you change the Run Configurations again, running on Java Version: 19.0.1
 
-##JavaDocs Documentation 
+
+## JavaDocs Documentation 
 Link: https://laughing-newton.103-233-0-73.plesk.page/
 
-##A list of features that are implemented and are working properly
+## A list of features that are implemented and are working properly
 -Users can save their score with any username they want
 -Working Leaderboards with Permenant HighScore List -> Saved in .txt file
 -Leaderboards that would only show when you play that level (eg:- if you play 4x4 grid, it would only show you the 4x4 High Scores)
@@ -30,14 +30,14 @@ turn yellow)
 -Added a feature where the game would show you the previously added value, and I added a pulsing animation to it.
 -Executable JAR file with batch(Open "launch.bat" to play the game without importing it into your IDE!!), Need to download zip file that I have handed in on Moodle.
 
-##A list of features that are implemented and are not working properly
+## A list of features that are implemented and are not working properly
 -I have tried my very best to fix every bug possible, if there's any I truly apologise.
 
-##A list of new Java classes that I have introduced for the assignment
+## A list of new Java classes that I have introduced for the assignment
 -Leaderboard.java
 Reason for the lack of new classes: I have reused alot of the code, method and classes that were given by the Assignment and enhanced it from there.
 
-##A list of Java classes that you modified from the given code base
+## A list of Java classes that you modified from the given code base
 -Account.java
 -Controller.java
 -EndGame.java
