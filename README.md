@@ -43,7 +43,7 @@ turn yellow)
 - Easter egg, that spins the whole GameScene! [Press the "S" key].
 - Bug-free gameplay, have made the game as close as possible to the original game(View version control to see what I have fixed!!)
 
-              -->Fixed the bug where the score would continue to accumulate regardless of you having empty cells or not.
+            -->Fixed the bug where the score would continue to accumulate regardless of you having empty cells or not.
 	      -->Fixed the bug where you could press any button and random cells would generate.
 	      -->Fixed bug where the score would increment when u spawned cells.
 	      -->Fixed major bug where cells would generate regardless of whether there were cells that could be added or not.
