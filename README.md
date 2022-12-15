@@ -45,7 +45,7 @@ Reason for the lack of new classes: I have reused alot of the code, method and c
 - GameScene.java
 - TextMaker.java
 
-##Highlight of Refactoring and Design Patterns
+## Highlight of Refactoring and Design Patterns
 - Applied MVC Pattern -> Each of my Controller Classes is tied to its respective FXML files
 - Applied Singleton Design Pattern -> Used in EndGame and TextMaker class
 - Have broken down methods in this project to uphold the single responsibility rule where each method should only do one thing
