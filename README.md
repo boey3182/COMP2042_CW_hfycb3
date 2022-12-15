@@ -1,5 +1,5 @@
 # COMP2042_CW_hfycb3
-> Enhanced 2048 by Boey Chun Hong
+> Enhanced 2048 by Boey Chun Hong / hfycb3 / 20299272
 
 ## Setup
 Download this repository as a zip file
