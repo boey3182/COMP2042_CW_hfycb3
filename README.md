@@ -46,11 +46,11 @@ turn yellow)
 - Executable JAR file with batch(Open "launch.bat" to play the game without importing it into your IDE!!), Need to download zip file that I have handed in on Moodle.
 
 ## A list of features that are implemented and are not working properly
-- I have tried my very best to fix every bug possible, if there's any I truly apologise.
+- None
 
 ## A list of new Java classes that I have introduced for the assignment
 - Leaderboard.java
-Reason for the lack of new classes: I have reused alot of the code, method and classes that were given by the Assignment and enhanced it from there.
+
 
 ## A list of Java classes that you modified from the given code base
 - Account.java
