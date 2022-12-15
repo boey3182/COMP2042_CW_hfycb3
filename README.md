@@ -42,6 +42,10 @@ turn yellow)
 - Account System, which gives the user the choice to save their username and score into the Leaderboards
 - Easter egg, that spins the whole GameScene! [Press the "S" key].
 - Bug-free gameplay, have made the game as close as possible to the original game(View version control to see what I have fixed!!)
+        -->Fixed the bug where the score would continue to accumulate regardless of you having empty cells or not.
+	      -->Fixed the bug where you could press any button and random cells would generate.
+	      -->Fixed bug where the score would increment when u spawned cells.
+	      -->Fixed major bug where cells would generate regardless of whether there were cells that could be added or not.
 - Added a feature where the game would show you the previously added value, and I added a pulsing animation to it.
 - Executable JAR file with batch(Open "launch.bat" to play the game without importing it into your IDE!!), Need to download zip file that I have handed in on Moodle.
 
